@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Huntlist — Find what you collect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --green: #2D5A3D;
+            --green-light: #3D7A54;
+            --green-pale: #EAF2EC;
+            --green-mid: #C2DBC9;
+            --orange: #E8622A;
+            --orange-light: #F5855A;
+            --orange-pale: #FDF0EB;
+            --bg: #FAFAF7;
+            --bg2: #F2F0EA;
+            --ink: #1A1A18;
+            --ink-mid: #4A4A44;
+            --ink-light: #8A8A82;
+            --border: rgba(45,90,61,0.12);
+            --card: #ffffff;
+        }
+        body.dark {
+            --bg: #111210;
+            --bg2: #1A1C19;
+            --ink: #F0EFE8;
+            --ink-mid: #B0AFA8;
+            --ink-light: #5A5A54;
+            --border: rgba(159,225,203,0.12);
+            --green: #5DCAA5;
+            --green-light: #9FE1CB;
+            --green-pale: rgba(29,158,117,0.20);
+            --green-mid: rgba(93,202,165,0.35);
+            --orange: #F5855A;
+            --orange-light: #F9A887;
+            --orange-pale: rgba(245,133,90,0.15);
+            --card: #1A1C19;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); overflow-x: hidden; transition: background 0.3s, color 0.3s; }
+
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 18px 48px; backdrop-filter: blur(12px);
+            background: rgba(250,250,247,0.92); border-bottom: 1px solid var(--border);
+            transition: background 0.3s, border-color 0.3s;
+        }
+        body.dark nav { background: rgba(17,18,16,0.92); }
+        .logo { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700; color: var(--green); letter-spacing: -0.5px; transition: color 0.3s; }
+        .logo span { color: var(--orange); transition: color 0.3s; }
+        .nav-right { display: flex; align-items: center; gap: 10px; }
+
+        .lang-switch { display: flex; background: var(--bg2); border-radius: 100px; border: 1px solid var(--border); overflow: hidden; transition: background 0.3s; }
+        .lang-btn { padding: 6px 14px; font-size: 13px; font-weight: 500; font-family: 'DM Sans', sans-serif; border: none; background: transparent; cursor: pointer; color: var(--ink-light); transition: all 0.2s; }
+        .lang-btn.active { background: var(--green); color: #fff; border-radius: 100px; }
+
+        .theme-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg2); cursor: pointer; font-size: 17px; display: flex; align-items: center; justify-content: center; transition: transform 0.25s, background 0.3s; }
+        .theme-btn:hover { transform: rotate(25deg); }
+
+        .nav-cta { background: var(--green); color: #fff; border: none; border-radius: 100px; padding: 10px 22px; font-size: 14px; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+        .nav-cta:hover { background: var(--green-light); transform: translateY(-1px); }
+
+        .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 24px 80px; text-align: center; position: relative; overflow: hidden; }
+        .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.35; pointer-events: none; transition: background 0.3s; }
+        .blob1 { width: 600px; height: 600px; background: var(--green-pale); top: -100px; left: -200px; }
+        .blob2 { width: 400px; height: 400px; background: var(--orange-pale); bottom: -50px; right: -100px; }
+        .hero-inner { position: relative; z-index: 1; max-width: 780px; }
+
+        .badge { display: inline-flex; align-items: center; gap: 6px; background: var(--green-pale); border: 1px solid var(--green-mid); border-radius: 100px; padding: 6px 14px; font-size: 13px; color: var(--green); margin-bottom: 32px; animation: up 0.6s ease both; transition: background 0.3s, color 0.3s; }
+        .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 2s ease infinite; }
+        @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(0.85)} }
+
+        h1 { font-family: 'Fraunces', serif; font-size: clamp(48px, 7vw, 84px); font-weight: 700; line-height: 1.05; letter-spacing: -2px; color: var(--ink); margin-bottom: 24px; animation: up 0.6s 0.1s ease both; }
+        h1 em { color: var(--orange); font-style: italic; }
+        h1 .gr { color: var(--green); }
+        .sub { font-size: 18px; line-height: 1.6; color: var(--ink-mid); max-width: 560px; margin: 0 auto 44px; animation: up 0.6s 0.2s ease both; }
+
+        .wform { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 14px; animation: up 0.6s 0.3s ease both; }
+        .wform input { padding: 14px 20px; border-radius: 100px; border: 1.5px solid var(--border); font-size: 15px; font-family: 'DM Sans', sans-serif; background: var(--card); color: var(--ink); width: 300px; outline: none; transition: border-color 0.2s, background 0.3s, color 0.3s; }
+        .wform input:focus { border-color: var(--green); }
+        .wform input::placeholder { color: var(--ink-light); }
+        .wform button { padding: 14px 28px; border-radius: 100px; background: var(--orange); color: #fff; border: none; font-size: 15px; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
+        .wform button:hover { background: var(--orange-light); transform: translateY(-2px); }
+
+        .hnote { font-size: 13px; color: var(--ink-light); animation: up 0.6s 0.4s ease both; }
+        .roles { display: flex; gap: 12px; justify-content: center; margin-top: 56px; flex-wrap: wrap; animation: up 0.6s 0.5s ease both; }
+        .rpill { display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--border); border-radius: 100px; padding: 8px 16px; font-size: 13px; color: var(--ink-mid); transition: background 0.3s; }
+        .rdot { width: 8px; height: 8px; border-radius: 50%; }
+        @keyframes up { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+        .sec { padding: 100px 24px; background: var(--bg); transition: background 0.3s; }
+        .sec.alt { background: var(--bg2); }
+        .sec-in { max-width: 1100px; margin: 0 auto; }
+        .slabel { font-size: 12px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 12px; transition: color 0.3s; }
+        .stitle { font-family: 'Fraunces', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; color: var(--ink); margin-bottom: 16px; }
+        .stitle em { color: var(--orange); font-style: italic; }
+        .ssub { font-size: 17px; color: var(--ink-mid); max-width: 520px; line-height: 1.6; margin-bottom: 64px; }
+
+        .how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+        .hcard { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; position: relative; overflow: hidden; transition: transform 0.2s, background 0.3s; }
+        .hcard:hover { transform: translateY(-4px); }
+        .hnum { font-family: 'Fraunces', serif; font-size: 64px; font-weight: 700; line-height: 1; color: var(--green-pale); position: absolute; top: 20px; right: 24px; letter-spacing: -3px; transition: color 0.3s; }
+        .hicon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 20px; transition: background 0.3s; }
+        .hcard h3 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 10px; color: var(--ink); }
+        .hcard p { font-size: 14px; color: var(--ink-mid); line-height: 1.65; }
+        .hcard.b .hicon { background: var(--green-pale); }
+        .hcard.s .hicon { background: var(--orange-pale); }
+
+        .cats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+        .ccat { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 20px; text-align: center; transition: border-color 0.2s, transform 0.2s, background 0.3s; }
+        .ccat:hover { border-color: var(--green); transform: translateY(-3px); }
+        .cicon { font-size: 28px; margin-bottom: 10px; }
+        .cname { font-size: 14px; font-weight: 500; color: var(--ink); }
+        .csub { font-size: 12px; color: var(--ink-light); margin-top: 2px; }
+
+        .fw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .fwcard { border-radius: 24px; padding: 40px; border: 1px solid var(--border); transition: background 0.3s; }
+        .fwcard.b { background: var(--green-pale); }
+        .fwcard.s { background: var(--orange-pale); }
+        .fwcard h3 { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 16px; }
+        .fwcard.b h3 { color: var(--green); }
+        .fwcard.s h3 { color: var(--orange); }
+        .fwlist { list-style: none; }
+        .fwlist li { font-size: 15px; color: var(--ink-mid); padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.06); line-height: 1.5; display: flex; gap: 10px; align-items: flex-start; }
+        body.dark .fwlist li { border-bottom-color: rgba(255,255,255,0.06); }
+        .fwlist li:last-child { border-bottom: none; }
+        .fwlist li::before { content: '&#x2192;'; font-weight: 500; flex-shrink: 0; margin-top: 1px; }
+        .fwcard.b .fwlist li::before { color: var(--green); }
+        .fwcard.s .fwlist li::before { color: var(--orange); }
+
+        .faq-list { max-width: 700px; }
+        .faq-item { border-bottom: 1px solid var(--border); }
+        .faq-q { font-size: 16px; font-weight: 500; padding: 20px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: var(--ink); user-select: none; }
+        .faq-q::after { content: '+'; font-size: 20px; color: var(--green); font-weight: 400; transition: transform 0.2s; flex-shrink: 0; margin-left: 12px; }
+        .faq-item.open .faq-q::after { transform: rotate(45deg); }
+        .faq-a { font-size: 15px; color: var(--ink-mid); line-height: 1.65; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.2s; }
+        .faq-item.open .faq-a { max-height: 200px; padding-bottom: 20px; }
+
+        .cta-sec { background: #2D5A3D !important; text-align: center; }
+        body.dark .cta-sec { background: #0F6E56 !important; }
+        .cta-sec .slabel { color: rgba(194,219,201,0.8); }
+        .cta-sec .stitle { color: #fff; }
+        .cta-sec .ssub { color: rgba(255,255,255,0.7); margin: 0 auto 40px; }
+        .cta-form { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
+        .cta-form input { padding: 14px 20px; border-radius: 100px; border: 1.5px solid rgba(255,255,255,0.3); font-size: 15px; font-family: 'DM Sans', sans-serif; background: rgba(255,255,255,0.1); color: #fff; width: 300px; outline: none; transition: border-color 0.2s; }
+        .cta-form input::placeholder { color: rgba(255,255,255,0.5); }
+        .cta-form input:focus { border-color: rgba(255,255,255,0.7); }
+        .cta-form button { padding: 14px 28px; border-radius: 100px; background: var(--orange); color: #fff; border: none; font-size: 15px; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
+        .cta-form button:hover { background: var(--orange-light); transform: translateY(-2px); }
+        .cta-note { font-size: 13px; color: rgba(255,255,255,0.5); }
+
+        footer { padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 12px; background: var(--bg); transition: background 0.3s; }
+        footer p { font-size: 13px; color: var(--ink-light); }
+        .flinks { display: flex; gap: 20px; }
+        .flinks a { font-size: 13px; color: var(--ink-light); text-decoration: none; }
+        .flinks a:hover { color: var(--green); }
+
+        [data-lang] { display: none; }
+        body.lang-en [data-lang="en"] { display: block; }
+        body.lang-en [data-lang="en"].i { display: inline; }
+        body.lang-it [data-lang="it"] { display: block; }
+        body.lang-it [data-lang="it"].i { display: inline; }
+        #form-en, #form-it { display: none; }
+        body.lang-en #form-en { display: flex; }
+        body.lang-it #form-it { display: flex; }
+
+        @media (max-width: 720px) {
+            nav { padding: 14px 16px; }
+            .nav-cta { display: none; }
+            .fw-grid { grid-template-columns: 1fr; }
+            footer { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body class="lang-en">
+
+<nav>
+    <div class="logo">hunt<span>list</span></div>
+    <div class="nav-right">
+        <div class="lang-switch">
+            <button class="lang-btn active" id="btn-en">EN</button>
+            <button class="lang-btn" id="btn-it">IT</button>
+        </div>
+        <button class="theme-btn" id="theme-btn">&#9728;&#65039;</button>
+        <button class="nav-cta" id="nav-cta">Join the waitlist</button>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="hero-inner">
+        <div class="badge">
+            <div class="dot"></div>
+            <span data-lang="en" class="i">Launching soon across Europe</span>
+            <span data-lang="it" class="i">Presto disponibile in tutta Europa</span>
+        </div>
+        <h1 data-lang="en">You hunt.<br><em>They find</em> <span class="gr">you.</span></h1>
+        <h1 data-lang="it">Tu cerchi.<br><em>Loro ti</em> <span class="gr">trovano.</span></h1>
+        <p class="sub" data-lang="en">The marketplace where collectors post what they're looking for — and sellers come to them. No more endless searching.</p>
+        <p class="sub" data-lang="it">Il marketplace dove i collezionisti pubblicano cosa cercano — e i venditori vengono da loro. Basta cercare all'infinito.</p>
+        <div class="wform" id="form-en">
+            <input id="email-en" type="email" placeholder="your@email.com"/>
+            <button id="join-en">Join the waitlist</button>
+        </div>
+        <div class="wform" id="form-it">
+            <input id="email-it" type="email" placeholder="tua@email.it"/>
+            <button id="join-it">Unisciti alla lista</button>
+        </div>
+        <p class="hnote" id="note-en" data-lang="en">Free forever for early members. No spam.</p>
+        <p class="hnote" id="note-it" data-lang="it">Gratuito per sempre per i primi iscritti. Niente spam.</p>
+        <div class="roles">
+            <div class="rpill"><div class="rdot" style="background:var(--green)"></div><span data-lang="en" class="i">I'm looking for something</span><span data-lang="it" class="i">Sto cercando qualcosa</span></div>
+            <div class="rpill"><div class="rdot" style="background:var(--orange)"></div><span data-lang="en" class="i">I have things to sell</span><span data-lang="it" class="i">Ho oggetti da vendere</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="sec">
+    <div class="sec-in">
+        <div class="slabel" data-lang="en">How it works</div>
+        <div class="slabel" data-lang="it">Come funziona</div>
+        <h2 class="stitle" data-lang="en">Finally, the market<br>works <em>for you.</em></h2>
+        <h2 class="stitle" data-lang="it">Finalmente il mercato<br>lavora <em>per te.</em></h2>
+        <p class="ssub" data-lang="en">Traditional marketplaces make you scroll forever. Huntlist flips the model — post once, receive offers.</p>
+        <p class="ssub" data-lang="it">I marketplace tradizionali ti fanno scorrere all'infinito. Huntlist ribalta il modello — pubblica una volta, ricevi offerte.</p>
+        <div class="how-grid">
+            <div class="hcard b"><div class="hnum">01</div><div class="hicon">&#128269;</div><h3 data-lang="en">Post your hunt</h3><h3 data-lang="it">Pubblica la ricerca</h3><p data-lang="en">Describe what you're looking for — item, edition, condition, max budget. Add a reference photo. Takes 2 minutes.</p><p data-lang="it">Descrivi cosa cerchi — oggetto, edizione, condizione, budget massimo. Aggiungi una foto. Ci vogliono 2 minuti.</p></div>
+            <div class="hcard s"><div class="hnum">02</div><div class="hicon">&#128230;</div><h3 data-lang="en">Sellers find you</h3><h3 data-lang="it">I venditori ti trovano</h3><p data-lang="en">Collectors across Europe browse your request and send offers with photos, condition details, and their asking price.</p><p data-lang="it">I collezionisti di tutta Europa vedono la tua richiesta e mandano offerte con foto, condizioni e prezzo.</p></div>
+            <div class="hcard b"><div class="hnum">03</div><div class="hicon">&#9989;</div><h3 data-lang="en">You choose the best</h3><h3 data-lang="it">Scegli la migliore</h3><p data-lang="en">Compare offers, check seller ratings, chat directly. Accept the one you like. Safe payment handled by the platform.</p><p data-lang="it">Confronta le offerte, controlla i rating, chatta. Accetta quella che preferisci. Pagamento sicuro gestito dalla piattaforma.</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="sec alt">
+    <div class="sec-in">
+        <div class="slabel" data-lang="en">Categories</div>
+        <div class="slabel" data-lang="it">Categorie</div>
+        <h2 class="stitle" data-lang="en">Every collector<br>has a <em>hunt.</em></h2>
+        <h2 class="stitle" data-lang="it">Ogni collezionista<br>ha la sua <em>caccia.</em></h2>
+        <p class="ssub" data-lang="en">From sealed vintage to graded singles — Huntlist covers the collections that matter to you.</p>
+        <p class="ssub" data-lang="it">Dal sealed vintage ai graded singles — Huntlist copre le collezioni che ti stanno a cuore.</p>
+        <div class="cats-grid">
+            <div class="ccat"><div class="cicon">&#127183;</div><div class="cname">Yu-Gi-Oh! TCG</div><div class="csub" data-lang="en">Singles, sealed, graded</div><div class="csub" data-lang="it">Singole, sealed, graded</div></div>
+            <div class="ccat"><div class="cicon">&#9889;</div><div class="cname">Pok&#233;mon</div><div class="csub" data-lang="en">Vintage, sealed, PSA</div><div class="csub" data-lang="it">Vintage, sealed, PSA</div></div>
+            <div class="ccat"><div class="cicon">&#128218;</div><div class="cname">Comics &amp; Manga</div><div class="csub" data-lang="en">First editions, full runs</div><div class="csub" data-lang="it">Prime edizioni, serie complete</div></div>
+            <div class="ccat"><div class="cicon">&#129302;</div><div class="cname">Action Figures</div><div class="csub" data-lang="en">Vintage, MISB, prototypes</div><div class="csub" data-lang="it">Vintage, MISB, prototipi</div></div>
+        </div>
+    </div>
+</section>
+
+<section class="sec">
+    <div class="sec-in">
+        <div data-lang="en">
+            <div class="slabel">For who</div>
+            <h2 class="stitle">Built for both<br>sides of the <em>hunt.</em></h2>
+            <p class="ssub">Searching for something rare, or have a collection to move? Huntlist works for you.</p>
+            <div class="fw-grid">
+                <div class="fwcard b"><h3>For buyers</h3><ul class="fwlist"><li>Post what you need in 2 minutes</li><li>Receive offers from sellers across Europe</li><li>Compare, chat, choose — no pressure</li><li>Always free to list</li></ul></div>
+                <div class="fwcard s"><h3>For sellers</h3><ul class="fwlist"><li>See real demand before listing anything</li><li>Offer only when there's genuine interest</li><li>Reach buyers across all of Europe</li><li>Build reputation with verified ratings</li></ul></div>
+            </div>
+        </div>
+        <div data-lang="it">
+            <div class="slabel">Per chi</div>
+            <h2 class="stitle">Pensato per entrambi<br>i lati della <em>caccia.</em></h2>
+            <p class="ssub">Cerchi qualcosa di raro, o hai una collezione da vendere? Huntlist funziona per te.</p>
+            <div class="fw-grid">
+                <div class="fwcard b"><h3>Per gli acquirenti</h3><ul class="fwlist"><li>Pubblica cosa cerchi in 2 minuti</li><li>Ricevi offerte da venditori in tutta Europa</li><li>Confronta, chatta, scegli — senza fretta</li><li>Sempre gratis pubblicare</li></ul></div>
+                <div class="fwcard s"><h3>Per i venditori</h3><ul class="fwlist"><li>Vedi la domanda reale prima di pubblicare</li><li>Offri solo quando c'&#232; interesse concreto</li><li>Raggiungi acquirenti in tutta Europa</li><li>Costruisci reputazione con rating verificati</li></ul></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="sec alt">
+    <div class="sec-in">
+        <div class="slabel" data-lang="en">FAQ</div>
+        <div class="slabel" data-lang="it">Domande frequenti</div>
+        <h2 class="stitle" data-lang="en">Got <em>questions?</em></h2>
+        <h2 class="stitle" data-lang="it">Hai <em>domande?</em></h2>
+        <div class="faq-list" data-lang="en">
+            <div class="faq-item"><div class="faq-q">Is Huntlist free to use?</div><div class="faq-a">Posting a listing as a buyer is completely free. We charge a small commission only when a deal is successfully closed between buyer and seller.</div></div>
+            <div class="faq-item"><div class="faq-q">Which countries will be available at launch?</div><div class="faq-a">We're launching across Europe — Italy, Germany, France, Spain, and more. Join the waitlist to be among the first notified when your country goes live.</div></div>
+            <div class="faq-item"><div class="faq-q">How does payment work?</div><div class="faq-a">Payments are handled securely through the platform. The buyer pays when accepting an offer, and the seller receives the funds once the transaction is confirmed.</div></div>
+            <div class="faq-item"><div class="faq-q">Can I use Huntlist as both buyer and seller?</div><div class="faq-a">Absolutely. Your account works both ways — post hunts and make offers at the same time with the same profile.</div></div>
+        </div>
+        <div class="faq-list" data-lang="it">
+            <div class="faq-item"><div class="faq-q">Huntlist &#232; gratuito?</div><div class="faq-a">Pubblicare un annuncio come acquirente &#232; completamente gratuito. Applichiamo una piccola commissione solo quando una trattativa viene conclusa con successo.</div></div>
+            <div class="faq-item"><div class="faq-q">In quali paesi sar&#224; disponibile al lancio?</div><div class="faq-a">Lanciamo in tutta Europa — Italia, Germania, Francia, Spagna e altri. Iscriviti alla waitlist per essere tra i primi notificati quando il tuo paese &#232; live.</div></div>
+            <div class="faq-item"><div class="faq-q">Come funzionano i pagamenti?</div><div class="faq-a">I pagamenti sono gestiti in modo sicuro tramite la piattaforma. L'acquirente paga quando accetta un'offerta, e il venditore riceve i fondi una volta confermata la transazione.</div></div>
+            <div class="faq-item"><div class="faq-q">Posso usare Huntlist sia da acquirente che da venditore?</div><div class="faq-a">Assolutamente. Il tuo account funziona in entrambi i modi — puoi pubblicare ricerche e mandare offerte con lo stesso profilo.</div></div>
+        </div>
+    </div>
+</section>
+
+<section class="sec cta-sec">
+    <div class="sec-in">
+        <div class="slabel">Early access</div>
+        <h2 class="stitle" data-lang="en">Your hunt<br>starts <em>here.</em></h2>
+        <h2 class="stitle" data-lang="it">La tua caccia<br>inizia <em>qui.</em></h2>
+        <p class="ssub" data-lang="en">Join the waitlist and be among the first collectors to use Huntlist when we launch across Europe.</p>
+        <p class="ssub" data-lang="it">Iscriviti alla waitlist e sii tra i primi collezionisti a usare Huntlist quando lanceremo in Europa.</p>
+        <div class="cta-form">
+            <input id="cta-email" type="email" placeholder="your@email.com"/>
+            <button id="cta-btn">Get early access</button>
+        </div>
+        <p class="cta-note" id="cta-note">
+            <span data-lang="en" class="i">No spam. Just one email when we launch.</span>
+            <span data-lang="it" class="i">Niente spam. Solo un'email quando lanciamo.</span>
+        </p>
+    </div>
+</section>
+
+<footer>
+    <div class="logo">hunt<span>list</span></div>
+    <p>&#169; 2025 Huntlist</p>
+    <div class="flinks">
+        <a href="mailto:hello&#64;huntlist.eu">hello&#64;huntlist.eu</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+    </div>
+</footer>
+
+<script src="huntlist.js"></script>
+</body>
+</html>
