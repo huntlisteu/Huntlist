@@ -1,6 +1,3 @@
-S
-Copia
-
 !function(){
     var lang='en';
 
