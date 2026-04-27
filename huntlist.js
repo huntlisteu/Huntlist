@@ -16,6 +16,7 @@
         localStorage.setItem('hl-theme',nowDark?'dark':'light');
     });
 
+
     // LANG
     function setLang(l){
         lang=l;
