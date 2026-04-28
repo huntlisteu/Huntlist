@@ -329,16 +329,29 @@
 </footer>
 
 <!-- COOKIE BANNER -->
-<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:var(--card);border-top:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;box-shadow:0 -4px 24px rgba(0,0,0,0.08);">
+<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:var(--card);border-top:1px solid var(--border);padding:16px 24px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;box-shadow:0 -4px 24px rgba(0,0,0,0.08);">
     <p style="font-size:13px;color:var(--ink-mid);max-width:600px;margin:0;">
         We use essential cookies to make this site work. By continuing, you agree to our
         <a href="privacy.html" style="color:var(--green);text-decoration:underline;">Privacy &amp; Cookie Policy</a>.
     </p>
     <div style="display:flex;gap:8px;flex-shrink:0;">
-        <button id="cookie-decline" style="padding:8px 16px;border-radius:100px;border:1px solid var(--border);background:transparent;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--ink-mid);cursor:pointer;">Essential only</button>
-        <button id="cookie-accept" style="padding:8px 16px;border-radius:100px;border:none;background:var(--green);color:#fff;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;">Accept</button>
+        <button onclick="hlCookieChoice('essential')" style="padding:8px 16px;border-radius:100px;border:1px solid var(--border);background:transparent;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--ink-mid);cursor:pointer;">Essential only</button>
+        <button onclick="hlCookieChoice('accepted')" style="padding:8px 16px;border-radius:100px;border:none;background:var(--green);color:#fff;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;">Accept</button>
     </div>
 </div>
+
+<script>
+    function hlCookieChoice(choice) {
+        localStorage.setItem('hl-cookie-consent', choice);
+        document.getElementById('cookie-banner').style.display = 'none';
+    }
+    (function() {
+        var consent = localStorage.getItem('hl-cookie-consent');
+        if (!consent) {
+            document.getElementById('cookie-banner').style.display = 'flex';
+        }
+    })();
+</script>
 
 <script src="huntlist.js"></script>
 </body>
