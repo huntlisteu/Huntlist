@@ -203,8 +203,8 @@
             <span data-lang="en" class="i">Launching soon across Europe</span>
             <span data-lang="it" class="i">Presto disponibile in tutta Europa</span>
         </div>
-        <h1 data-lang="en">You list.<br><em>They find</em> <span class="gr">you.</span></h1>
-        <h1 data-lang="it">Posta la tua lista.<br><em>Loro ti</em> <span class="gr">trovano.</span></h1>
+        <h1 data-lang="en">You hunt.<br><em>They find</em> <span class="gr">you.</span></h1>
+        <h1 data-lang="it">Tu cerchi.<br><em>Loro ti</em> <span class="gr">trovano.</span></h1>
         <p class="sub" data-lang="en">The marketplace where collectors post what they're looking for — and sellers come to them. No more endless searching.</p>
         <p class="sub" data-lang="it">Il marketplace dove i collezionisti pubblicano cosa cercano — e i venditori vengono da loro. Basta cercare all'infinito.</p>
         <div class="wform" id="form-en">
@@ -244,15 +244,15 @@
     <div class="sec-in">
         <div class="slabel" data-lang="en">Categories</div>
         <div class="slabel" data-lang="it">Categorie</div>
-        <h2 class="stitle" data-lang="en">Every collector<br>has a <em>list.</em></h2>
-        <h2 class="stitle" data-lang="it">Ogni collezionista<br>ha la sua <em>lista.</em></h2>
+        <h2 class="stitle" data-lang="en">Every collector<br>has a <em>hunt.</em></h2>
+        <h2 class="stitle" data-lang="it">Ogni collezionista<br>ha la sua <em>caccia.</em></h2>
         <p class="ssub" data-lang="en">From sealed vintage to graded singles — Huntlist covers the collections that matter to you.</p>
-        <p class="ssub" data-lang="it">Dal sealed vintage alle gradate — Huntlist copre le collezioni che ti stanno a cuore.</p>
+        <p class="ssub" data-lang="it">Dal sealed vintage ai graded singles — Huntlist copre le collezioni che ti stanno a cuore.</p>
         <div class="cats-grid">
-            <div class="ccat"><div class="cicon">&#127183;</div><div class="cname">Yu-Gi-Oh!</div><div class="csub" data-lang="en">Singles, sealed, structure</div><div class="csub" data-lang="it">Singole, sealed, structure</div></div>
+            <div class="ccat"><div class="cicon">&#127183;</div><div class="cname">Yu-Gi-Oh! TCG</div><div class="csub" data-lang="en">Singles, sealed, graded</div><div class="csub" data-lang="it">Singole, sealed, graded</div></div>
             <div class="ccat"><div class="cicon">&#9889;</div><div class="cname">Pok&#233;mon</div><div class="csub" data-lang="en">Vintage, sealed, PSA</div><div class="csub" data-lang="it">Vintage, sealed, PSA</div></div>
-            <div class="ccat"><div class="cicon">&#128218;</div><div class="cname">One Piece</div><div class="csub" data-lang="en">First editions, full runs</div><div class="csub" data-lang="it">Prime edizioni, serie complete</div></div>
-            <div class="ccat"><div class="cicon">&#129302;</div><div class="cname" data-lang="en">and more...</div><div class="cname" data-lang="it">e altro...</div><div class="csub" data-lang="en">Vintage, MISB, prototypes</div><div class="csub" data-lang="it">Vintage, MISB, prototipi</div></div>
+            <div class="ccat"><div class="cicon">&#128218;</div><div class="cname">Comics &amp; Manga</div><div class="csub" data-lang="en">First editions, full runs</div><div class="csub" data-lang="it">Prime edizioni, serie complete</div></div>
+            <div class="ccat"><div class="cicon">&#129302;</div><div class="cname">Action Figures</div><div class="csub" data-lang="en">Vintage, MISB, prototypes</div><div class="csub" data-lang="it">Vintage, MISB, prototipi</div></div>
         </div>
     </div>
 </section>
@@ -324,10 +324,21 @@
     <p>&#169; 2025 Huntlist</p>
     <div class="flinks">
         <a href="mailto:hello&#64;huntlist.eu">hello&#64;huntlist.eu</a>
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
+        <a href="privacy.html">Privacy &amp; Cookies</a>
     </div>
 </footer>
+
+<!-- COOKIE BANNER -->
+<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:var(--card);border-top:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;box-shadow:0 -4px 24px rgba(0,0,0,0.08);">
+    <p style="font-size:13px;color:var(--ink-mid);max-width:600px;margin:0;">
+        We use essential cookies to make this site work. By continuing, you agree to our
+        <a href="privacy.html" style="color:var(--green);text-decoration:underline;">Privacy &amp; Cookie Policy</a>.
+    </p>
+    <div style="display:flex;gap:8px;flex-shrink:0;">
+        <button id="cookie-decline" style="padding:8px 16px;border-radius:100px;border:1px solid var(--border);background:transparent;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--ink-mid);cursor:pointer;">Essential only</button>
+        <button id="cookie-accept" style="padding:8px 16px;border-radius:100px;border:none;background:var(--green);color:#fff;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;">Accept</button>
+    </div>
+</div>
 
 <script src="huntlist.js"></script>
 </body>
