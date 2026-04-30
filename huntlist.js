@@ -57,7 +57,7 @@
             note.style.fontWeight='500';
             input.value='';
             setTimeout(function(){
-                note.textContent=it?'Gratuito per sempre per i primi iscritti. Niente spam.':'Free forever for early members. No spam.';
+                note.textContent=it?'Niente spam.':'No spam.';
                 note.style.color='';note.style.fontWeight='';
             },5000);
         }else{
