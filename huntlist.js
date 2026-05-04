@@ -6,6 +6,8 @@
     function setTheme(dark){
         if(dark){document.body.classList.add('dark');themeBtn.textContent='\uD83C\uDF19';}
         else{document.body.classList.remove('dark');themeBtn.textContent='\u2600\uFE0F';}
+        document.getElementById('nav-logo').src=dark?'logo.svg':'logo_alt.svg';
+        document.getElementById('footer-logo').src=dark?'logo.svg':'logo_alt.svg';
     }
     var saved=localStorage.getItem('hl-theme');
     var sysDark=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;
