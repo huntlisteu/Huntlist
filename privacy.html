@@ -3,175 +3,808 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Privacy & Cookie Policy — Huntlist</title>
+    <title>Huntlist — List it. Hunt it. Ship it once.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
         :root {
             --green: #2D5A3D;
+            --green-light: #3D7A54;
+            --green-pale: #EAF2EC;
+            --green-mid: #C2DBC9;
             --orange: #E8622A;
+            --orange-light: #F5855A;
+            --orange-pale: #FDF0EB;
             --bg: #FAFAF7;
+            --bg2: #F0EFE8;
             --ink: #1A1A18;
             --ink-mid: #4A4A44;
             --ink-light: #8A8A82;
-            --border: rgba(45,90,61,0.12);
+            --border: #1A1A18;
+            --card: #ffffff;
+            --shadow: 4px 4px 0px #1A1A18;
+            --shadow-lg: 6px 6px 0px #1A1A18;
+            --shadow-sm: 2px 2px 0px #1A1A18;
+            --r: 6px;
+            --r-sm: 4px;
+            --r-lg: 10px;
         }
-        body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.7; }
-        nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; border-bottom: 1px solid var(--border); }
-        .logo { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 700; color: var(--green); text-decoration: none; letter-spacing: -0.5px; }
-        .logo span { color: var(--orange); }
-        .back { font-size: 13px; color: var(--ink-light); text-decoration: none; }
-        .back:hover { color: var(--green); }
-        .container { max-width: 720px; margin: 0 auto; padding: 60px 24px 100px; }
-        h1 { font-family: 'Sora', sans-serif; font-size: 40px; font-weight: 700; letter-spacing: -1px; margin-bottom: 8px; color: var(--ink); }
-        .updated { font-size: 13px; color: var(--ink-light); margin-bottom: 48px; }
-        h2 { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 600; margin-top: 40px; margin-bottom: 12px; color: var(--ink); }
-        p { font-size: 15px; color: var(--ink-mid); margin-bottom: 14px; }
-        ul { padding-left: 20px; margin-bottom: 14px; }
-        li { font-size: 15px; color: var(--ink-mid); margin-bottom: 6px; }
-        a { color: var(--green); }
-        .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 14px; font-size: 14px; }
-        th { text-align: left; padding: 10px 12px; background: #EAF2EC; color: var(--green); font-weight: 500; border: 1px solid var(--border); }
-        td { padding: 10px 12px; border: 1px solid var(--border); color: var(--ink-mid); vertical-align: top; }
+        body.dark {
+            --bg: #111210;
+            --bg2: #1A1C19;
+            --ink: #F0EFE8;
+            --ink-mid: #B0AFA8;
+            --ink-light: #5A5A54;
+            --border: #3A3D38;
+            --green: #3DBB7E;
+            --green-light: #6FD6A0;
+            --green-pale: rgba(61,187,126,0.13);
+            --green-mid: rgba(61,187,126,0.26);
+            --orange: #FF6B2C;
+            --orange-light: #FF8A56;
+            --orange-pale: rgba(255,107,44,0.13);
+            --card: #1A1C19;
+            --shadow: 4px 4px 0px #3A3D38;
+            --shadow-lg: 6px 6px 0px #3A3D38;
+            --shadow-sm: 2px 2px 0px #3A3D38;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); overflow-x: hidden; transition: background 0.2s, color 0.2s; }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 40px;
+            height: 60px;
+            background: var(--bg);
+            border-bottom: 2px solid var(--border);
+            transition: background 0.2s;
+        }
+        .logo-wrap { display: flex; align-items: center; text-decoration: none; }
+        .nav-right { display: flex; align-items: center; gap: 8px; }
+
+        .lang-switch { display: flex; border: 2px solid var(--border); overflow: hidden; border-radius: var(--r); }
+        .lang-btn {
+            padding: 5px 12px; font-size: 12px; font-weight: 500;
+            font-family: 'DM Sans', sans-serif; border: none; background: transparent;
+            cursor: pointer; color: var(--ink-mid); transition: background 0.15s, color 0.15s;
+            letter-spacing: 0.5px;
+        }
+        .lang-btn + .lang-btn { border-left: 2px solid var(--border); }
+        .lang-btn.active { background: var(--ink); color: var(--bg); }
+
+        .theme-btn {
+            width: 36px; height: 36px; border: 2px solid var(--border);
+            background: transparent; cursor: pointer; font-size: 16px;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.15s, transform 0.15s;
+            border-radius: var(--r);
+        }
+        .theme-btn:hover { background: var(--ink); color: var(--bg); transform: rotate(20deg); }
+
+        .nav-cta {
+            background: var(--orange); color: #fff; border: 2px solid var(--border);
+            padding: 8px 18px; font-size: 13px; font-weight: 500;
+            font-family: 'DM Sans', sans-serif; cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.1s, box-shadow 0.1s;
+            letter-spacing: 0.2px;
+            border-radius: var(--r);
+        }
+        .nav-cta:hover { transform: translate(-2px,-2px); box-shadow: var(--shadow); }
+        .nav-cta:active { transform: translate(0,0); box-shadow: none; }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            padding: 100px 40px 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            align-items: center;
+            border-bottom: 2px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-left { padding-right: 60px; }
+        .hero-right {
+            border-left: 2px solid var(--border);
+            padding-left: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-self: stretch;
+            justify-content: center;
+        }
+
+        .badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--green-pale); border: 2px solid var(--border);
+            padding: 5px 12px; font-size: 12px; color: var(--green);
+            font-weight: 500; letter-spacing: 0.5px; margin-bottom: 24px;
+            text-transform: uppercase;
+            border-radius: var(--r);
+        }
+        .dot { width: 7px; height: 7px; background: var(--green); flex-shrink: 0; animation: pulse 2s ease infinite; border-radius: 1px; }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+        h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(50px, 6.2vw, 82px);
+            font-weight: 800; line-height: 1.02;
+            letter-spacing: -1.5px;
+            color: var(--ink);
+            margin-bottom: 28px;
+            font-variant-ligatures: none;
+            font-feature-settings: "liga" 0, "calt" 0;
+        }
+        h1 em { color: var(--orange); font-style: normal; }
+        h1 .gr { color: var(--green); }
+        .sub { font-size: 16px; line-height: 1.65; color: var(--ink-mid); max-width: 480px; margin-bottom: 40px; }
+
+        .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+        .btn-primary {
+            background: var(--orange); color: #fff; border: 2px solid var(--border);
+            padding: 13px 28px; font-size: 15px; font-weight: 500;
+            font-family: 'DM Sans', sans-serif; text-decoration: none; cursor: pointer;
+            box-shadow: var(--shadow); transition: transform 0.1s, box-shadow 0.1s;
+            display: inline-block;
+            border-radius: var(--r);
+        }
+        .btn-primary:hover { transform: translate(-2px,-2px); box-shadow: var(--shadow-lg); }
+        .btn-primary:active { transform: translate(0,0); box-shadow: none; }
+        .btn-secondary {
+            background: transparent; color: var(--ink); border: 2px solid var(--border);
+            padding: 13px 28px; font-size: 15px; font-weight: 500;
+            font-family: 'DM Sans', sans-serif; text-decoration: none;
+            box-shadow: var(--shadow); transition: transform 0.1s, box-shadow 0.1s, background 0.15s;
+            display: inline-block;
+            border-radius: var(--r);
+        }
+        .btn-secondary:hover { transform: translate(-2px,-2px); box-shadow: var(--shadow-lg); background: var(--ink); color: var(--bg); }
+        .btn-secondary:active { transform: translate(0,0); box-shadow: none; }
+
+        /* Hero right — stat boxes */
+        .stat-box {
+            border: 2px solid var(--border);
+            background: var(--card);
+            padding: 20px 24px;
+            box-shadow: var(--shadow-sm);
+            transition: background 0.2s;
+            border-radius: var(--r-lg);
+        }
+        .stat-box .stat-num {
+            font-family: 'Sora', sans-serif;
+            font-size: 42px; font-weight: 800; line-height: 1;
+            letter-spacing: -2px; color: var(--ink);
+        }
+        .stat-box .stat-num.orange { color: var(--orange); }
+        .stat-box .stat-num.green { color: var(--green); }
+        .stat-box .stat-label { font-size: 13px; color: var(--ink-mid); margin-top: 4px; }
+
+        .roles-row { display: flex; gap: 8px; flex-wrap: wrap; }
+        .rpill {
+            display: flex; align-items: center; gap: 7px;
+            border: 2px solid var(--border); background: var(--card);
+            padding: 7px 14px; font-size: 13px; color: var(--ink-mid);
+            box-shadow: var(--shadow-sm);
+            transition: background 0.2s;
+            border-radius: var(--r);
+        }
+        .rdot { width: 8px; height: 8px; flex-shrink: 0; border-radius: 2px; }
+
+        /* ── SECTIONS ── */
+        .sec { padding: 80px 40px; border-bottom: 2px solid var(--border); background: var(--bg); transition: background 0.2s; }
+        .sec.alt { background: var(--bg2); }
+        .sec-in { max-width: 1140px; margin: 0 auto; }
+
+        .slabel {
+            font-size: 11px; font-weight: 500; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--green); margin-bottom: 12px;
+        }
+        .stitle {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(34px, 4vw, 54px);
+            font-weight: 800; letter-spacing: -1.5px; line-height: 1.05;
+            color: var(--ink); margin-bottom: 16px;
+        }
+        .stitle em { color: var(--orange); font-style: normal; }
+        .ssub { font-size: 16px; color: var(--ink-mid); max-width: 520px; line-height: 1.65; margin-bottom: 56px; }
+
+        /* How it works — numbered row */
+        .how-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border: 2px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+        .hcard {
+            padding: 36px 32px; border-right: 2px solid var(--border);
+            position: relative; background: var(--card);
+            transition: background 0.2s;
+        }
+        .hcard:last-child { border-right: none; }
+        .hnum {
+            font-family: 'Sora', sans-serif; font-size: 76px; font-weight: 800;
+            line-height: 1; letter-spacing: -2px; color: var(--green-mid);
+            position: absolute; top: 16px; right: 20px;
+            transition: color 0.2s;
+        }
+        body.dark .hnum { color: var(--green-mid); }
+        .hicon {
+            width: 48px; height: 48px; border: 2px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 20px; font-size: 22px; background: var(--bg);
+            transition: background 0.2s;
+            border-radius: var(--r);
+        }
+        .hcard h3 {
+            font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 600;
+            letter-spacing: -0.5px; margin-bottom: 10px; color: var(--ink);
+        }
+        .hcard p { font-size: 14px; color: var(--ink-mid); line-height: 1.65; max-width: 260px; }
+
+        /* Categories */
+        .cats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border: 2px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+        .ccat {
+            padding: 28px 24px; border-right: 2px solid var(--border);
+            text-align: left; background: var(--card);
+            transition: background 0.15s, transform 0.1s;
+            cursor: default;
+        }
+        .ccat:last-child { border-right: none; }
+        .ccat:hover { background: var(--green-pale); }
+        .cicon { font-size: 28px; margin-bottom: 12px; display: block; }
+        .cname { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.5px; color: var(--ink); }
+        .csub { font-size: 12px; color: var(--ink-light); margin-top: 4px; }
+
+        /* For who */
+        .fw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 2px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+        .fwcard {
+            padding: 40px;
+            transition: background 0.2s;
+        }
+        .fwcard.b { background: var(--green-pale); border-right: 2px solid var(--border); }
+        .fwcard.s { background: var(--orange-pale); }
+        .fwcard h3 {
+            font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 700;
+            letter-spacing: -1px; margin-bottom: 24px;
+        }
+        .fwcard.b h3 { color: var(--green); }
+        .fwcard.s h3 { color: var(--orange); }
+        .fwlist { list-style: none; }
+        .fwlist li {
+            font-size: 15px; color: var(--ink-mid); padding: 10px 0;
+            border-bottom: 1px solid var(--border); line-height: 1.5;
+            display: flex; gap: 10px; align-items: flex-start;
+        }
+        .fwlist li:last-child { border-bottom: none; }
+        .fwlist li::before { content: '→'; font-weight: 500; flex-shrink: 0; margin-top: 1px; }
+        .fwcard.b .fwlist li::before { color: var(--green); }
+        .fwcard.s .fwlist li::before { color: var(--orange); }
+
+        /* FAQ */
+        .faq-list { max-width: 740px; border: 2px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+        .faq-item { border-bottom: 2px solid var(--border); }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-q {
+            font-size: 16px; font-weight: 500; padding: 20px 24px;
+            cursor: pointer; display: flex; justify-content: space-between;
+            align-items: center; color: var(--ink); user-select: none;
+            background: var(--card); transition: background 0.15s;
+        }
+        .faq-q:hover { background: var(--bg2); }
+        .faq-q::after { content: '+'; font-size: 22px; color: var(--orange); font-weight: 400; transition: transform 0.2s; flex-shrink: 0; margin-left: 12px; font-family: 'Sora', sans-serif; }
+        .faq-item.open .faq-q::after { transform: rotate(45deg); }
+        .faq-item.open .faq-q { background: var(--bg2); }
+        .faq-a { font-size: 15px; color: var(--ink-mid); line-height: 1.65; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.2s; padding: 0 24px; background: var(--bg); }
+        .faq-item.open .faq-a { max-height: 200px; padding: 20px 24px; }
+
+        /* CTA section */
+        .cta-sec {
+            background: var(--green) !important;
+            border-bottom: 2px solid var(--border);
+        }
+        body.dark .cta-sec { background: #0C3D2C !important; }
+        .cta-sec .slabel { color: rgba(194,219,201,0.8); }
+        .cta-sec .stitle { color: #fff; }
+        .cta-sec .ssub { color: rgba(255,255,255,0.75); margin: 0 auto 40px; }
+        .cta-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-items: start; }
+        .cta-left { padding-right: 60px; border-right: 2px solid rgba(255,255,255,0.3); }
+        .cta-right { padding-left: 60px; }
+
+        /* BREVO OVERRIDES */
+        .brevo-wrap { animation: up 0.5s 0.2s ease both; }
+        .brevo-wrap .sib-form { background: transparent !important; padding: 0 !important; }
+        #sib-container {
+            background: rgba(255,255,255,0.08) !important;
+            border: 2px solid rgba(255,255,255,0.3) !important;
+            border-radius: 10px !important;
+            padding: 8px 20px !important;
+        }
+        #sib-container input.input {
+            font-family: 'DM Sans', sans-serif !important;
+            font-size: 14px !important;
+            background: rgba(255,255,255,0.08) !important;
+            border: 1px solid rgba(61,187,126,0.45) !important;
+            border-radius: 6px !important;
+            color: #F0EFE8 !important;
+            padding: 10px 14px !important;
+            width: 100% !important;
+        }
+        #sib-container input.input:focus { border-color: #3DBB7E !important; outline: none !important; }
+        #sib-container input.input::placeholder { color: rgba(240,239,232,0.4) !important; }
+        #sib-container select.input {
+            font-family: 'DM Sans', sans-serif !important;
+            font-size: 14px !important;
+            background: rgba(255,255,255,0.08) !important;
+            border: 1px solid rgba(61,187,126,0.45) !important;
+            border-radius: 6px !important;
+            color: #F0EFE8 !important;
+            padding: 10px 14px !important;
+            width: 100% !important;
+        }
+        #sib-container select.input option { background: #1A1C19; color: #F0EFE8; }
+        .sib-form-block__button {
+            border-radius: 6px !important;
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.3) !important;
+            transition: transform 0.1s, box-shadow 0.1s !important;
+        }
+        .sib-form-block__button:hover { transform: translate(-2px,-2px) !important; box-shadow: 5px 5px 0px rgba(0,0,0,0.3) !important; }
+        .sib-form-block__button:active { transform: translate(0,0) !important; box-shadow: none !important; }
+
+        /* Footer */
+        footer {
+            padding: 28px 40px; display: flex; align-items: center;
+            justify-content: space-between; border-top: 2px solid var(--border);
+            flex-wrap: wrap; gap: 12px; background: var(--bg);
+            transition: background 0.2s;
+        }
+        footer p { font-size: 13px; color: var(--ink-light); }
+        .flinks { display: flex; gap: 24px; align-items: center; }
+        .flinks a { font-size: 13px; color: var(--ink-light); text-decoration: none; }
+        .flinks a:hover { color: var(--green); }
+
+        /* Cookie banner */
+        #cookie-banner {
+            border-top: 2px solid var(--border) !important;
+            box-shadow: 0 -4px 0px var(--border) !important;
+        }
+
+        /* Lang/display */
+        [data-lang] { display: none; }
+        body.lang-en [data-lang="en"] { display: block; }
+        body.lang-en [data-lang="en"].i { display: inline; }
+        body.lang-it [data-lang="it"] { display: block; }
+        body.lang-it [data-lang="it"].i { display: inline; }
+
+        @keyframes up { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+        /* Mobile */
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; }
+            .hero-right { border-left: none; border-top: 2px solid var(--border); padding-left: 0; padding-top: 40px; margin-top: 40px; }
+            .hero-left { padding-right: 0; }
+            .how-grid { grid-template-columns: 1fr; }
+            .hcard { border-right: none; border-bottom: 2px solid var(--border); }
+            .hcard:last-child { border-bottom: none; }
+            .cats-grid { grid-template-columns: 1fr 1fr; }
+            .ccat:nth-child(2) { border-right: none; }
+            .ccat:nth-child(3) { border-top: 2px solid var(--border); }
+            .ccat:nth-child(4) { border-top: 2px solid var(--border); border-right: none; }
+            .fw-grid { grid-template-columns: 1fr; }
+            .fwcard.b { border-right: none; border-bottom: 2px solid var(--border); }
+            .cta-layout { grid-template-columns: 1fr; }
+            .cta-left { padding-right: 0; border-right: none; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 40px; margin-bottom: 0; }
+            .cta-right { padding-left: 0; padding-top: 40px; }
+            nav { padding: 0 16px; }
+            .nav-cta { display: none; }
+            .sec { padding: 60px 20px; }
+            .hero { padding: 90px 20px 60px; }
+            footer { padding: 24px 20px; }
+        }
     </style>
 </head>
-<body>
+<body class="lang-en">
 
+<!-- NAV -->
 <nav>
-    <a href="/" style="display:flex;align-items:center;text-decoration:none;">
-        <img src="logo_alt.svg" alt="Huntlist" style="height:36px;width:auto;display:block;"/>
+    <a href="/" class="logo-wrap">
+        <img src="logo_alt.svg" id="nav-logo" alt="Huntlist" style="height:32px;width:auto;display:block;"/>
     </a>
-    <a href="/" class="back">← Back to Huntlist</a>
+    <div class="nav-right">
+        <div class="lang-switch">
+            <button class="lang-btn active" id="btn-en">EN</button>
+            <button class="lang-btn" id="btn-it">IT</button>
+        </div>
+        <button class="theme-btn" id="theme-btn">☀️</button>
+        <button class="nav-cta" id="nav-cta">Join the waitlist</button>
+    </div>
 </nav>
 
-<div class="container">
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-left">
+        <div class="badge">
+            <div class="dot"></div>
+            <span data-lang="en" class="i">Launching soon across Europe</span>
+            <span data-lang="it" class="i">Presto disponibile in tutta Europa</span>
+        </div>
+        <h1 data-lang="en">Post your list.<br><em>Hunters find</em> <span class="gr">you.</span></h1>
+        <h1 data-lang="it">Pubblica la lista.<br><em>Gli hunter ti</em> <span class="gr">trovano.</span></h1>
+        <p class="sub" data-lang="en">Collectors post the cards they need. Sellers hunt the lists and ship everything in one go. No more paying 6 shipments to complete a set.</p>
+        <p class="sub" data-lang="it">I collezionisti pubblicano le carte che cercano. I venditori cacciano le liste e spediscono tutto in una volta. Basta pagare 6 spedizioni per completare un set.</p>
+        <div class="hero-btns">
+            <a href="#how-it-works" class="btn-primary" data-lang="en">Learn more</a>
+            <a href="#early-access" class="btn-secondary" data-lang="en">Join now</a>
+            <a href="#how-it-works" class="btn-primary" data-lang="it">Scopri di più</a>
+            <a href="#early-access" class="btn-secondary" data-lang="it">Entra subito</a>
+        </div>
+    </div>
+    <div class="hero-right">
+        <div class="stat-box">
+            <div class="stat-num orange">0%</div>
+            <div class="stat-label" data-lang="en">Commission for collectors. Always free to list.</div>
+            <div class="stat-label" data-lang="it">Commissione per i collezionisti. Sempre gratis pubblicare.</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-num green">1</div>
+            <div class="stat-label" data-lang="en">Shipment. However many cards you need.</div>
+            <div class="stat-label" data-lang="it">Spedizione. Per quante carte vuoi.</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-num">🌍</div>
+            <div class="stat-label" data-lang="en">Europe-wide. Pokémon, One Piece, Yu-Gi-Oh! at launch.</div>
+            <div class="stat-label" data-lang="it">Tutta Europa. Pokémon, One Piece, Yu-Gi-Oh! al lancio.</div>
+        </div>
+        <div class="roles-row">
+            <div class="rpill"><div class="rdot" style="background:#2D5A3D;"></div><span data-lang="en" class="i">Collector</span><span data-lang="it" class="i">Collezionista</span></div>
+            <div class="rpill"><div class="rdot" style="background:#E8622A;"></div><span data-lang="en" class="i">Hunter</span><span data-lang="it" class="i">Hunter</span></div>
+        </div>
+    </div>
+</section>
 
-    <h1>Privacy & Cookie Policy</h1>
-    <p class="updated">Last updated: April 2025</p>
+<!-- HOW IT WORKS -->
+<section class="sec" id="how-it-works">
+    <div class="sec-in">
+        <div class="slabel" data-lang="en">How it works</div>
+        <div class="slabel" data-lang="it">Come funziona</div>
+        <h2 class="stitle" data-lang="en">One list.<br><em>One shipment.</em></h2>
+        <h2 class="stitle" data-lang="it">Una lista.<br><em>Una spedizione.</em></h2>
+        <p class="ssub" data-lang="en">Stop paying a separate shipment for every card. Post your want list once — hunters across Europe respond with everything bundled together.</p>
+        <p class="ssub" data-lang="it">Smetti di pagare una spedizione per ogni carta. Pubblica la tua mancalista una volta — i hunter di tutta Europa rispondono con tutto insieme.</p>
+        <div class="how-grid">
+            <div class="hcard">
+                <div class="hnum">01</div>
+                <div class="hicon">📋</div>
+                <h3 data-lang="en">Post your list</h3>
+                <h3 data-lang="it">Pubblica la lista</h3>
+                <p data-lang="en">Write the cards you need, the condition and your budget. Takes 2 minutes. It's always free.</p>
+                <p data-lang="it">Scrivi le carte che cerchi, la condizione e il tuo budget. Ci vogliono 2 minuti. È sempre gratuito.</p>
+            </div>
+            <div class="hcard">
+                <div class="hnum">02</div>
+                <div class="hicon">🎯</div>
+                <h3 data-lang="en">Hunters find you</h3>
+                <h3 data-lang="it">I hunter ti trovano</h3>
+                <p data-lang="en">Sellers across Europe hunt your list and make you a bundle offer — all the cards you need, one package.</p>
+                <p data-lang="it">I venditori di tutta Europa cacciano la tua lista e ti fanno un'offerta bundle — tutte le carte che cerchi, un solo pacco.</p>
+            </div>
+            <div class="hcard">
+                <div class="hnum">03</div>
+                <div class="hicon">📦</div>
+                <h3 data-lang="en">One shipment. Done.</h3>
+                <h3 data-lang="it">Una spedizione. Fine.</h3>
+                <p data-lang="en">Compare offers, check hunter ratings, accept the best one. Pay once. Receive everything together.</p>
+                <p data-lang="it">Confronta le offerte, controlla i rating, accetta la migliore. Paghi una volta. Ricevi tutto insieme.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <!-- PRIVACY POLICY -->
-    <h2>1. Who we are</h2>
-    <p>Huntlist is operated by an individual ("we", "us", "our") based in Italy. You can contact us at <a href="mailto:huntlisteu@gmail.com">huntlisteu@gmail.com</a>.</p>
-    <p>This policy explains what personal data we collect when you visit huntlist.eu, how we use it, and your rights under the EU General Data Protection Regulation (GDPR).</p>
+<!-- CATEGORIES -->
+<section class="sec alt">
+    <div class="sec-in">
+        <div class="slabel" data-lang="en">Categories</div>
+        <div class="slabel" data-lang="it">Categorie</div>
+        <h2 class="stitle" data-lang="en">Every collector<br>has a <em>list.</em></h2>
+        <h2 class="stitle" data-lang="it">Ogni collezionista<br>ha la sua <em>lista.</em></h2>
+        <p class="ssub" data-lang="en">From vintage sealed to graded singles — post your want list and let hunters do the work.</p>
+        <p class="ssub" data-lang="it">Dal sealed vintage ai graded singles — pubblica la tua mancalista e lascia che i hunter facciano il lavoro.</p>
+        <div class="cats-grid">
+            <div class="ccat">
+                <span class="cicon">⚡</span>
+                <div class="cname">Pokémon</div>
+                <div class="csub" data-lang="en">Vintage, sealed, PSA</div>
+                <div class="csub" data-lang="it">Vintage, sealed, PSA</div>
+            </div>
+            <div class="ccat">
+                <span class="cicon">☠️</span>
+                <div class="cname">One Piece TCG</div>
+                <div class="csub" data-lang="en">Singles, sealed, rare alt art</div>
+                <div class="csub" data-lang="it">Singole, sealed, rare alt art</div>
+            </div>
+            <div class="ccat">
+                <span class="cicon">🎴</span>
+                <div class="cname">Yu-Gi-Oh!</div>
+                <div class="csub" data-lang="en">Singles, sealed, graded</div>
+                <div class="csub" data-lang="it">Singole, sealed, graded</div>
+            </div>
+            <div class="ccat">
+                <span class="cicon">+</span>
+                <div class="cname" data-lang="en">More coming</div>
+                <div class="cname" data-lang="it">Altri in arrivo</div>
+                <div class="csub" data-lang="en">Based on community demand</div>
+                <div class="csub" data-lang="it">In base alla community</div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <h2>2. What data we collect</h2>
-    <p>When you sign up for our waiting list, we collect:</p>
-    <ul>
-        <li><strong>Email address</strong> — to notify you when Huntlist launches.</li>
-        <li><strong>Favourite TCG</strong> — to understand te community demand (Pokémon, One Piece, Yu-Gi-Oh!).</li>
-        <li><strong>Country</strong> — to understand which markets to prioritise at launch.</li>
-    </ul>
-    <p>We do not collect your name, phone number, payment details, or any sensitive personal data at this stage.</p>
+<!-- FOR WHO -->
+<section class="sec">
+    <div class="sec-in">
+        <div data-lang="en">
+            <div class="slabel">For who</div>
+            <h2 class="stitle">List it.<br><em>Hunt it.</em></h2>
+            <p class="ssub">Whether you're completing a set or you have cards to sell — Huntlist works for both sides.</p>
+            <div class="fw-grid">
+                <div class="fwcard b">
+                    <h3>For collectors</h3>
+                    <ul class="fwlist">
+                        <li>Post your want list in 2 minutes</li>
+                        <li>Receive bundle offers from hunters across Europe</li>
+                        <li>One shipment — no matter how many cards you need</li>
+                        <li>Always free to list</li>
+                    </ul>
+                </div>
+                <div class="fwcard s">
+                    <h3>For hunters</h3>
+                    <ul class="fwlist">
+                        <li>Browse real demand before offering anything</li>
+                        <li>Hunt the lists that match your stock</li>
+                        <li>Reach collectors across all of Europe</li>
+                        <li>Build reputation with verified ratings</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div data-lang="it">
+            <div class="slabel">Per chi</div>
+            <h2 class="stitle">Listalo.<br><em>Caccialo.</em></h2>
+            <p class="ssub">Che tu stia completando un set o abbia carte da vendere — Huntlist funziona per entrambi.</p>
+            <div class="fw-grid">
+                <div class="fwcard b">
+                    <h3>Per i collezionisti</h3>
+                    <ul class="fwlist">
+                        <li>Pubblica la tua mancalista in 2 minuti</li>
+                        <li>Ricevi offerte bundle da hunter di tutta Europa</li>
+                        <li>Una spedizione — qualunque sia il numero di carte</li>
+                        <li>Sempre gratuito pubblicare</li>
+                    </ul>
+                </div>
+                <div class="fwcard s">
+                    <h3>Per i hunter</h3>
+                    <ul class="fwlist">
+                        <li>Sfoglia la domanda reale prima di offrire</li>
+                        <li>Caccia le liste che corrispondono al tuo stock</li>
+                        <li>Raggiungi collezionisti in tutta Europa</li>
+                        <li>Costruisci reputazione con rating verificati</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <h2>3. How we use your data</h2>
-    <p>We use your data exclusively to:</p>
-    <ul>
-        <li>Send you one email when Huntlist officially launches.</li>
-        <li>Send occasional pre-launch updates about the project (no more than once a month).</li>
-        <li>Understand the geographic and interest distribution of our early community.</li>
-    </ul>
-    <p>We will never sell your data, share it with advertisers, or use it for any purpose beyond the above.</p>
+<!-- FAQ -->
+<section class="sec alt">
+    <div class="sec-in">
+        <div class="slabel" data-lang="en">FAQ</div>
+        <div class="slabel" data-lang="it">Domande frequenti</div>
+        <h2 class="stitle" data-lang="en">Got <em>questions?</em></h2>
+        <h2 class="stitle" data-lang="it">Hai <em>domande?</em></h2>
+        <div class="faq-list" data-lang="en">
+            <div class="faq-item"><div class="faq-q">Is posting a want list free?</div><div class="faq-a">Yes, always. Posting your want list as a collector is completely free. We charge a 5% commission only to the hunter when a deal is successfully closed.</div></div>
+            <div class="faq-item"><div class="faq-q">Which countries will be available at launch?</div><div class="faq-a">We're launching across Europe — Italy, Germany, France, Spain, and more. Join the waitlist to be among the first notified when your country goes live.</div></div>
+            <div class="faq-item"><div class="faq-q">How does payment work?</div><div class="faq-a">Payments are handled securely through the platform. The collector pays when accepting a bundle offer, and the hunter receives the funds once the delivery has been successfully completed.</div></div>
+            <div class="faq-item"><div class="faq-q">Can I be both a collector and a hunter?</div><div class="faq-a">Absolutely. Your account works both ways — post your want list and hunt other people's lists at the same time with the same profile.</div></div>
+            <div class="faq-item"><div class="faq-q">Which TCGs are supported at launch?</div><div class="faq-a">Pokémon, One Piece TCG, and Yu-Gi-Oh!. More categories will be added based on community demand.</div></div>
+        </div>
+        <div class="faq-list" data-lang="it">
+            <div class="faq-item"><div class="faq-q">Pubblicare una mancalista è gratuito?</div><div class="faq-a">Sì, sempre. Pubblicare la tua mancalista come collezionista è completamente gratuito. Applichiamo una commissione del 5% solo al venditore quando una trattativa viene conclusa con successo.</div></div>
+            <div class="faq-item"><div class="faq-q">In quali paesi sarà disponibile al lancio?</div><div class="faq-a">Lanciamo in tutta Europa — Italia, Germania, Francia, Spagna e altri. Iscriviti alla waitlist per essere tra i primi notificati quando il tuo paese è live.</div></div>
+            <div class="faq-item"><div class="faq-q">Come funzionano i pagamenti?</div><div class="faq-a">I pagamenti sono gestiti in modo sicuro tramite la piattaforma. Il collezionista paga quando accetta un'offerta bundle, e il venditore riceve i fondi una volta che la consegna è stata completata correttamente.</div></div>
+            <div class="faq-item"><div class="faq-q">Posso essere sia collezionista che hunter?</div><div class="faq-a">Assolutamente. Il tuo account funziona in entrambi i modi — pubblica la tua mancalista e caccia quelle degli altri con lo stesso profilo.</div></div>
+            <div class="faq-item"><div class="faq-q">Quali TCG sono supportati al lancio?</div><div class="faq-a">Pokémon, One Piece TCG e Yu-Gi-Oh!. Altre categorie verranno aggiunte in base alla domanda della community.</div></div>
+        </div>
+    </div>
+</section>
 
-    <h2>4. Legal basis for processing</h2>
-    <p>We process your data on the basis of your explicit consent, given when you tick the consent checkbox and submit the waiting list form. You can withdraw your consent at any time by clicking the unsubscribe link in any email we send you, or by contacting us at <a href="mailto:huntlisteu@gmail.com">huntlisteu@gmail.com</a>.</p>
+<!-- CTA / WAITLIST -->
+<section class="sec cta-sec" id="early-access">
+    <div class="sec-in">
+        <div class="cta-layout">
+            <div class="cta-left">
+                <div class="slabel">Early access</div>
+                <h2 class="stitle" data-lang="en">Post your list.<br><em>We'll find the rest.</em></h2>
+                <h2 class="stitle" data-lang="it">Pubblica la lista.<br><em>Pensiamo al resto.</em></h2>
+                <p class="ssub" data-lang="en">Join the waitlist and be among the first collectors and hunters to use Huntlist when we launch across Europe.</p>
+                <p class="ssub" data-lang="it">Iscriviti alla waitlist e sii tra i primi collezionisti e hunter a usare Huntlist quando lanceremo in Europa.</p>
+            </div>
+            <div class="cta-right">
+                <!-- BREVO FORM -->
+                <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+                <div class="brevo-wrap" style="max-width:480px;">
+                    <div id="sib-form-container" class="sib-form-container">
+                        <div id="error-message" class="sib-form-message-panel" style="font-size:14px;text-align:left;font-family:'DM Sans',sans-serif;color:#661d1d;background-color:#ffeded;border-radius:6px;border-color:#ff4949;margin-bottom:12px;">
+                            <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                                <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-11.49 120h22.979c6.823 0 12.274 5.682 11.99 12.5l-7 168c-.268 6.428-5.556 11.5-11.99 11.5h-8.979c-6.433 0-11.722-5.073-11.99-11.5l-7-168c-.283-6.818 5.167-12.5 11.99-12.5zM256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z"/></svg>
+                                <span class="sib-form-message-panel__inner-text">Something went wrong on our end. Try again in a moment.</span>
+                            </div>
+                        </div>
+                        <div id="success-message" class="sib-form-message-panel" style="font-size:14px;text-align:left;font-family:'DM Sans',sans-serif;color:#085229;background-color:#e7faf0;border-radius:6px;border-color:#13ce66;margin-bottom:12px;">
+                            <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                                <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z"/></svg>
+                                <span class="sib-form-message-panel__inner-text">You're in the hunt. We'll reach out when we launch. 🎴</span>
+                            </div>
+                        </div>
+                        <div id="sib-container" class="sib-container--large sib-container--vertical" style="text-align:center;direction:ltr;">
+                            <form id="sib-form" method="POST" action="https://079a4b7e.sibforms.com/serve/MUIFAK3q-_9kccmVCyrxaz76XZrOsCUsU20-KCOMdLJrcdEqwO8vQ5crP6cxqmrdcKWrSsJL9KOIfPsPh2C4np_s5EnusYrggLEVpz9HBp29behZSzxtSfpPOxjybsFO1GBvVB46_wukkGqVV9au3vr8OaXlqjqI1qUhaqzjRr0YRJQJY6h7W2nZtGsrl4MG0kVnYPINws1F9Q17yQ==" data-type="subscription">
+                                <div style="padding:8px 0;">
+                                    <div class="sib-input sib-form-block">
+                                        <div class="form__entry entry_block">
+                                            <div class="form__label-row">
+                                                <label class="entry__label" style="font-weight:700;font-size:13px;font-family:'DM Sans',sans-serif;color:rgba(255,255,255,0.8);text-align:left;" for="EMAIL" data-required="*">Email</label>
+                                                <div class="entry__field">
+                                                    <input class="input" type="text" id="EMAIL" name="EMAIL" autocomplete="off" placeholder="your@email.com" data-required="true" required/>
+                                                </div>
+                                            </div>
+                                            <label class="entry__error entry__error--primary" style="font-size:13px;font-family:'DM Sans',sans-serif;color:#661d1d;background-color:#ffeded;border-radius:6px;border-color:#ff4949;"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding:8px 0;">
+                                    <div class="sib-radiobutton-group sib-form-block" data-required="true">
+                                        <div class="form__entry entry_mcq">
+                                            <div class="form__label-row">
+                                                <label class="entry__label" style="font-weight:700;font-size:13px;font-family:'DM Sans',sans-serif;color:rgba(255,255,255,0.8);text-align:left;" data-required="*">Favourite TCG</label>
+                                                <div>
+                                                    <div class="entry__choice"><label><input type="radio" name="TCG" class="input_replaced" value="1" required><span class="radio-button"></span><span style="font-size:14px;font-family:'DM Sans',sans-serif;color:#fff;">Pokémon</span></label></div>
+                                                    <div class="entry__choice"><label><input type="radio" name="TCG" class="input_replaced" value="2" required><span class="radio-button"></span><span style="font-size:14px;font-family:'DM Sans',sans-serif;color:#fff;">One Piece</span></label></div>
+                                                    <div class="entry__choice"><label><input type="radio" name="TCG" class="input_replaced" value="3" required><span class="radio-button"></span><span style="font-size:14px;font-family:'DM Sans',sans-serif;color:#fff;">Yu-Gi-Oh!</span></label></div>
+                                                    <div class="entry__choice"><label><input type="radio" name="TCG" class="input_replaced" value="4" required><span class="radio-button"></span><span style="font-size:14px;font-family:'DM Sans',sans-serif;color:#fff;">Other</span></label></div>
+                                                </div>
+                                            </div>
+                                            <label class="entry__error entry__error--primary" style="font-size:13px;font-family:'DM Sans',sans-serif;color:#661d1d;background-color:#ffeded;border-radius:6px;border-color:#ff4949;"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding:8px 0;">
+                                    <div class="sib-select sib-form-block" data-required="true">
+                                        <div class="form__entry entry_block">
+                                            <div class="form__label-row">
+                                                <label class="entry__label" style="font-weight:700;font-size:13px;font-family:'DM Sans',sans-serif;color:rgba(255,255,255,0.8);text-align:left;" data-required="*">Country</label>
+                                                <div class="entry__field">
+                                                    <select class="input" id="PAESE" name="PAESE" data-required="true">
+                                                        <option value="" disabled selected hidden>Select your country</option>
+                                                        <option value="1">Italy</option>
+                                                        <option value="2">France</option>
+                                                        <option value="3">Germany</option>
+                                                        <option value="4">UK</option>
+                                                        <option value="5">Spain</option>
+                                                        <option value="6">Other</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <label class="entry__error entry__error--primary" style="font-size:13px;font-family:'DM Sans',sans-serif;color:#661d1d;background-color:#ffeded;border-radius:6px;border-color:#ff4949;"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding:8px 0;">
+                                    <div class="sib-optin sib-form-block">
+                                        <div class="form__entry entry_mcq">
+                                            <div class="form__label-row">
+                                                <div class="entry__choice">
+                                                    <label>
+                                                        <input type="checkbox" class="input_replaced" value="1" id="CONSENSO" name="CONSENSO" required/>
+                                                        <span class="checkbox checkbox_tick_positive"></span>
+                                                        <span style="font-size:12px;font-family:'DM Sans',sans-serif;color:rgba(255,255,255,0.6);">I agree to receive updates about Huntlist and accept the <a href="privacy.html" style="color:#5FD699;">Privacy Policy</a>. I can unsubscribe at any time.</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <label class="entry__error entry__error--primary" style="font-size:13px;font-family:'DM Sans',sans-serif;color:#661d1d;background-color:#ffeded;border-radius:6px;border-color:#ff4949;"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding:8px 0;">
+                                    <div class="sib-form-block" style="text-align:center;">
+                                        <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:15px;font-weight:500;font-family:'DM Sans',sans-serif;color:#FFFFFF;background-color:#E8622A;border-radius:6px;border:2px solid rgba(255,255,255,0.3);padding:14px 32px;cursor:pointer;width:100%;" form="sib-form" type="submit">
+                                            <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512"><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.010z"/></svg>
+                                            Join the hunt →
+                                        </button>
+                                    </div>
+                                </div>
+                                <input type="text" name="email_address_check" value="" class="input--hidden">
+                                <input type="hidden" name="locale" value="en">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- END BREVO FORM -->
+            </div>
+        </div>
+    </div>
+</section>
 
-    <h2>5. Third-party services</h2>
-    <p>We use the following third-party services that may process your data:</p>
-    <ul>
-        <li><strong>Brevo (Sendinblue SAS)</strong> — email marketing platform that stores your waiting list data. Privacy policy: <a href="https://www.brevo.com/legal/privacypolicy/" target="_blank">brevo.com/legal/privacypolicy</a></li>
-        <li><strong>Vercel Inc.</strong> — hosting provider for this website. May process technical data such as IP addresses. Privacy policy: <a href="https://vercel.com/legal/privacy-policy" target="_blank">vercel.com/legal/privacy-policy</a></li>
-        <li><strong>Cloudflare Inc.</strong> — CDN and security provider used by Vercel. May process IP addresses for performance and security purposes. Privacy policy: <a href="https://www.cloudflare.com/privacypolicy/" target="_blank">cloudflare.com/privacypolicy</a></li>
-        <li><strong>Google Fonts (Google LLC)</strong> — used to load fonts on this website. May transmit your IP address to Google servers. Privacy policy: <a href="https://policies.google.com/privacy" target="_blank">policies.google.com/privacy</a></li>
-    </ul>
+<!-- FOOTER -->
+<footer>
+    <a href="/" style="display:flex;align-items:center;text-decoration:none;">
+        <img src="logo_alt.svg" id="footer-logo" alt="Huntlist" style="height:28px;width:auto;display:block;"/>
+    </a>
+    <p>© 2025 Huntlist</p>
+    <div class="flinks">
+        <a href="mailto:huntlisteu@gmail.com">huntlisteu@gmail.com</a>
+        <a href="https://instagram.com/huntlisteu" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="5"/>
+                <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
+            </svg>
+        </a>
+        <a href="privacy.html">Privacy & Cookies</a>
+    </div>
+</footer>
 
-    <h2>6. Data retention</h2>
-    <p>We retain your data until you unsubscribe from our list, or until Huntlist launches and you have been notified. After launch, we will ask for your explicit consent before any further communication.</p>
-
-    <h2>7. Your rights</h2>
-    <p>Under the GDPR, you have the right to:</p>
-    <ul>
-        <li>Access the personal data we hold about you.</li>
-        <li>Request correction of inaccurate data.</li>
-        <li>Request deletion of your data ("right to be forgotten").</li>
-        <li>Withdraw consent at any time.</li>
-        <li>Lodge a complaint with the Italian data protection authority (Garante per la protezione dei dati personali) at <a href="https://www.garanteprivacy.it" target="_blank">garanteprivacy.it</a>.</li>
-    </ul>
-    <p>To exercise any of these rights, contact us at <a href="mailto:huntlisteu@gmail.com">huntlisteu@gmail.com</a>. We will respond within 30 days.</p>
-
-    <h2>8. Data transfers outside the EU</h2>
-    <p>Some of our third-party providers (Vercel, Cloudflare, Google) are based in the United States. Data transfers are covered by Standard Contractual Clauses as required by EU law.</p>
-
-    <hr class="divider"/>
-
-    <!-- COOKIE POLICY -->
-    <h1>Cookie Policy</h1>
-    <p class="updated">Last updated: April 2025</p>
-
-    <h2>1. What are cookies</h2>
-    <p>Cookies are small text files stored on your device when you visit a website. We also use <strong>localStorage</strong>, a similar browser technology that stores data locally on your device without an expiry date unless cleared manually.</p>
-
-    <h2>2. Cookies we use</h2>
-
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Purpose</th>
-            <th>Duration</th>
-        </tr>
-        <tr>
-            <td>hl-theme</td>
-            <td>localStorage — Functional</td>
-            <td>Remembers your dark/light mode preference</td>
-            <td>Until manually cleared</td>
-        </tr>
-        <tr>
-            <td>hl-ref</td>
-            <td>localStorage — Functional</td>
-            <td>Remembers which partner store referred you</td>
-            <td>Until manually cleared</td>
-        </tr>
-        <tr>
-            <td>hl-cookie-consent</td>
-            <td>localStorage — Functional</td>
-            <td>Remembers your cookie consent choice</td>
-            <td>Until manually cleared</td>
-        </tr>
-        <tr>
-            <td>Brevo session</td>
-            <td>Third-party — Functional</td>
-            <td>Required for the waiting list form to function</td>
-            <td>Session</td>
-        </tr>
-        <tr>
-            <td>Cloudflare __cf_bm</td>
-            <td>Third-party — Functional</td>
-            <td>Bot protection and security (set by Cloudflare via Vercel)</td>
-            <td>30 minutes</td>
-        </tr>
-    </table>
-
-    <p>We do not use analytics cookies, advertising cookies, or any tracking technology beyond the above.</p>
-
-    <h2>3. Managing cookies</h2>
-    <p>You can manage or delete cookies and localStorage data through your browser settings. Note that disabling functional cookies may affect how the website works (e.g. your theme preference will not be saved).</p>
-    <p>Most browsers allow you to:</p>
-    <ul>
-        <li>View and delete cookies and localStorage data.</li>
-        <li>Block cookies from specific sites.</li>
-        <li>Block all third-party cookies.</li>
-    </ul>
-
-    <h2>4. Changes to this policy</h2>
-    <p>We may update this policy as Huntlist grows and new services are added. We will always update the "last updated" date at the top. For significant changes, we will notify waiting list subscribers by email.</p>
-
-    <h2>5. Contact</h2>
-    <p>For any questions about this policy, contact us at <a href="mailto:huntlisteu@gmail.com">huntlisteu@gmail.com</a>.</p>
-
+<!-- COOKIE BANNER -->
+<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:var(--card);border-top:2px solid var(--border);padding:16px 24px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <p style="font-size:13px;color:var(--ink-mid);max-width:600px;margin:0;">
+        We use essential cookies to make this site work. By continuing, you agree to our
+        <a href="privacy.html" style="color:var(--green);text-decoration:underline;">Privacy & Cookie Policy</a>.
+    </p>
+    <div style="display:flex;gap:8px;flex-shrink:0;">
+        <button onclick="hlCookieChoice('essential')" style="padding:8px 16px;border:2px solid var(--border);border-radius:6px;background:transparent;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--ink-mid);cursor:pointer;box-shadow:var(--shadow-sm);transition:transform 0.1s,box-shadow 0.1s;" onmouseover="this.style.transform='translate(-1px,-1px)';this.style.boxShadow='var(--shadow)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--shadow-sm)'">Essential only</button>
+        <button onclick="hlCookieChoice('accepted')" style="padding:8px 16px;border:2px solid var(--border);border-radius:6px;background:var(--ink);color:var(--bg);font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;box-shadow:var(--shadow-sm);transition:transform 0.1s,box-shadow 0.1s;" onmouseover="this.style.transform='translate(-1px,-1px)';this.style.boxShadow='var(--shadow)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--shadow-sm)'">Accept</button>
+    </div>
 </div>
 
+<script>
+    function hlCookieChoice(choice) {
+        localStorage.setItem('hl-cookie-consent', choice);
+        document.getElementById('cookie-banner').style.display = 'none';
+    }
+    (function() {
+        var consent = localStorage.getItem('hl-cookie-consent');
+        if (!consent) {
+            document.getElementById('cookie-banner').style.display = 'flex';
+        }
+    })();
+</script>
+
+<script>
+    document.getElementById('sib-form').addEventListener('submit', function(e) {
+        var consenso = document.getElementById('CONSENSO');
+        if (!consenso.checked) {
+            e.preventDefault();
+            e.stopPropagation();
+            var label = consenso.closest('.form__entry').querySelector('.entry__error');
+            if (label) {
+                label.textContent = 'This field is required to join the hunt.';
+                label.style.display = 'block';
+            }
+            consenso.closest('.entry__choice').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    });
+</script>
+<script>
+    window.REQUIRED_CODE_ERROR_MESSAGE = 'Please select a country';
+    window.LOCALE = 'en';
+    window.EMAIL_INVALID_MESSAGE = "That doesn't look right. Double-check your email and try again.";
+    window.REQUIRED_ERROR_MESSAGE = "This field is required to join the hunt.";
+    window.GENERIC_INVALID_MESSAGE = "That doesn't look right. Double-check and try again.";
+    var AUTOHIDE = Boolean(0);
+</script>
+<script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+<script src="huntlist.js"></script>
 </body>
 </html>
