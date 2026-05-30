@@ -62,4 +62,22 @@
             if(!open)item.classList.add('open');
         });
     });
+
+    var revealEls=document.querySelectorAll('.reveal,.reveal-stagger');
+    if(revealEls.length && 'IntersectionObserver' in window){
+        document.documentElement.classList.add('reveal-ready');
+        var io=new IntersectionObserver(function(entries){
+            entries.forEach(function(e){
+                if(e.isIntersecting){
+                    e.target.classList.add('in');
+                    io.unobserve(e.target);
+                }
+            });
+        },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+        revealEls.forEach(function(el){io.observe(el);});
+        // rete di sicurezza: se per qualunque motivo l'observer non scatta, rivela tutto
+        setTimeout(function(){
+            revealEls.forEach(function(el){el.classList.add('in');});
+        },1600);
+    }
 }();
