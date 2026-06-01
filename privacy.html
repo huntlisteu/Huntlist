@@ -20,7 +20,7 @@
             --ink-mid: #4A4A44;
             --ink-light: #8A8A82;
             --border: #1A1A18;
-            --card: #ffffff;
+            --card: #FAF7F2;
             --shadow-sm: 4px 3px 0px #1A1A18;
             --shadow-sm-lift: 6px 5px 0px #1A1A18;
             --r: 4px;
@@ -29,7 +29,7 @@
         body.dark {
             --green: #9ADE00;
             --orange: #FF6B2C;
-            --green-pale: rgba(61,187,126,0.13);
+            --green-pale: rgba(154,222,0,0.13);
             --bg: #111210;
             --bg2: #1A1C19;
             --ink: #F0EFE8;
@@ -66,12 +66,12 @@
             font-size: 13px; font-weight: 500; color: var(--ink); text-decoration: none;
             border: 2px solid var(--border); border-radius: var(--r);
             padding: 7px 14px; background: var(--card);
-            box-shadow: var(--shadow-sm);
+            box-shadow: none;
             transition: transform 0.12s ease, box-shadow 0.12s ease;
             display: inline-block;
         }
-        .back:hover { transform: translate(-2px,-2px); box-shadow: var(--shadow-sm-lift); }
-        .back:active { transform: translate(1px,1px); box-shadow: 2px 1px 0px var(--border); }
+        .back:hover { transform: translate(-2px,-2px); box-shadow: 2px 2px 0px var(--border); }
+        .back:active { transform: translate(-2px,-2px); box-shadow: 2px 2px 0px var(--border); }
 
         .container { max-width: 760px; margin: 0 auto; padding: 56px 24px 110px; }
 
@@ -79,7 +79,7 @@
             border: 2px solid var(--border);
             border-radius: var(--r-lg);
             background: var(--card);
-            box-shadow: var(--shadow-sm);
+            box-shadow: none;
             padding: 40px 40px 44px;
             transition: background 0.2s;
         }
