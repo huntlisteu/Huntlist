@@ -194,7 +194,8 @@
             transition: transform 0.14s ease, box-shadow 0.14s ease;
             border-radius: var(--r-lg);
         }
-        .stat-box:hover { transform: translate(-4px,-4px); box-shadow: var(--shadow-card-lift); }
+        .stat-box.lifted { transform: translate(-4px,-4px); box-shadow: 4px 4px 0px #1A1A18; }
+        body.dark .stat-box.lifted { box-shadow: 4px 4px 0px #3A3D38; }
         .stat-box .stat-num {
             font-family: 'Sora', sans-serif;
             font-size: 42px; font-weight: 800; line-height: 1;
@@ -204,7 +205,6 @@
         .stat-box .stat-num.green  { color: #1A1A18; }
         .stat-box .stat-label { font-size: 13px; color: rgba(26,26,24,0.8); margin-top: 4px; }
         body.dark .stat-box { background: var(--brand-block-bg); border-color: var(--border); box-shadow: none; }
-        body.dark .stat-box:hover { box-shadow: var(--shadow-card-lift); }
         body.dark .stat-box .stat-num { color: var(--green-light); }
         body.dark .stat-box .stat-num.orange { color: var(--orange-light); }
         body.dark .stat-box .stat-num.green  { color: var(--green-light); }
