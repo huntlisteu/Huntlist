@@ -11,20 +11,20 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --green: #6B21A8;
-            --green-light: #9333EA;
-            --green-pale: #EDE9FE;
-            --green-mid: #C4B5FD;
+            --green: #6DBE00;
+            --green-light: #8AD800;
+            --green-pale: #EEF7CC;
+            --green-mid: #C8E87A;
             --orange: #B84A1C;
             --orange-light: #D4602A;
             --orange-pale: #FAE8DC;
-            --bg: #FAFAF7;
-            --bg2: #F0EFE8;
+            --bg: #F2EDE3;
+            --bg2: #EAE2D4;
             --ink: #1A1A18;
             --ink-mid: #4A4A44;
             --ink-light: #8A8A82;
             --border: #1A1A18;
-            --card: #ffffff;
+            --card: #FAF7F2;
             --shadow: 11px 9px 0px #1A1A18;
             --shadow-md: 6px 5px 0px #1A1A18;
             --shadow-sm: 4px 3px 0px #1A1A18;
@@ -43,10 +43,10 @@
             --ink-mid: #B0AFA8;
             --ink-light: #5A5A54;
             --border: #3A3D38;
-            --green: #A855F7;
-            --green-light: #D8B4FE;
-            --green-pale: rgba(168,85,247,0.13);
-            --green-mid: rgba(168,85,247,0.26);
+            --green: #9ADE00;
+            --green-light: #C2F000;
+            --green-pale: rgba(154,222,0,0.13);
+            --green-mid: rgba(154,222,0,0.26);
             --orange: #FF6B2C;
             --orange-light: #FF8A56;
             --orange-pale: rgba(255,107,44,0.13);
@@ -187,7 +187,7 @@
         /* Hero right — stat boxes */
         .stat-box {
             border: 2px solid var(--border);
-            background: #6B21A8;
+            background: #6DBE00;
             padding: 20px 24px;
             box-shadow: var(--shadow);
             transition: transform 0.14s ease, box-shadow 0.14s ease;
@@ -197,15 +197,15 @@
         .stat-box .stat-num {
             font-family: 'Sora', sans-serif;
             font-size: 42px; font-weight: 800; line-height: 1;
-            letter-spacing: -2px; color: #F0EFE8;
+            letter-spacing: -2px; color: #1A1A18;
         }
-        .stat-box .stat-num.orange { color: #D4602A; }
-        .stat-box .stat-num.green { color: #D8B4FE; }
-        .stat-box .stat-label { font-size: 13px; color: rgba(240,239,232,0.7); margin-top: 4px; }
+        .stat-box .stat-num.orange { color: #7A2800; }
+        .stat-box .stat-num.green  { color: #3A6600; }
+        .stat-box .stat-label { font-size: 13px; color: rgba(26,26,24,0.65); margin-top: 4px; }
         body.dark .stat-box { background: var(--brand-block-bg); border-color: var(--border); }
         body.dark .stat-box .stat-num { color: var(--green-light); }
         body.dark .stat-box .stat-num.orange { color: var(--orange-light); }
-        body.dark .stat-box .stat-num.green { color: var(--green-light); }
+        body.dark .stat-box .stat-num.green  { color: var(--green-light); }
         body.dark .stat-box .stat-label { color: var(--brand-block-sub); }
 
         .roles-row { display: flex; gap: 18px; flex-wrap: wrap; }
@@ -279,17 +279,20 @@
             cursor: default;
         }
         .ccat:last-child { border-right: none; }
-        .ccat:nth-child(odd)  { background: #6B21A8; }
+        .ccat:nth-child(odd)  { background: #6DBE00; }
         .ccat:nth-child(even) { background: #B84A1C; }
-        .ccat:hover { filter: brightness(1.12); }
+        .ccat:hover { filter: brightness(1.08); }
         .cicon { font-size: 28px; margin-bottom: 12px; display: block; }
         .cname { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.5px; color: #F0EFE8; }
-        .csub { font-size: 12px; color: rgba(240,239,232,0.65); margin-top: 4px; }
+        .ccat:nth-child(odd) .cname { color: #1A1A18; }
+        .csub { font-size: 12px; color: rgba(240,239,232,0.75); margin-top: 4px; }
+        .ccat:nth-child(odd) .csub { color: rgba(26,26,24,0.6); }
         body.dark .ccat { filter: none; border-right-color: var(--brand-block-border); }
         body.dark .ccat:nth-child(odd)  { background: var(--brand-block-bg); }
         body.dark .ccat:nth-child(even) { background: var(--brand-block-bg); }
         body.dark .ccat:nth-child(odd) .cname  { color: var(--green-light); }
         body.dark .ccat:nth-child(even) .cname { color: var(--orange-light); }
+        body.dark .ccat:nth-child(odd) .csub { color: var(--ink-mid); }
         body.dark .ccat:hover { background: var(--bg2); }
         body.dark .csub { color: var(--ink-mid); }
 
@@ -299,26 +302,31 @@
             padding: 40px;
             transition: background 0.2s;
         }
-        .fwcard.b { background: #6B21A8; border-right: 2px solid rgba(255,255,255,0.2); }
+        .fwcard.b { background: #6DBE00; border-right: 2px solid rgba(26,26,24,0.2); }
         .fwcard.s { background: #B84A1C; }
         .fwcard h3 {
             font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 700;
             letter-spacing: -1px; margin-bottom: 24px; color: #F0EFE8;
         }
+        .fwcard.b h3 { color: #1A1A18; }
         .fwlist { list-style: none; }
         .fwlist li {
-            font-size: 15px; color: rgba(240,239,232,0.8); padding: 10px 0;
+            font-size: 15px; color: rgba(240,239,232,0.85); padding: 10px 0;
             border-bottom: 1px solid rgba(255,255,255,0.2); line-height: 1.5;
             display: flex; gap: 10px; align-items: flex-start;
         }
+        .fwcard.b .fwlist li { color: rgba(26,26,24,0.75); border-bottom-color: rgba(26,26,24,0.15); }
         .fwlist li:last-child { border-bottom: none; }
         .fwlist li::before { content: '→'; font-weight: 500; flex-shrink: 0; margin-top: 1px; color: rgba(255,255,255,0.6); }
+        .fwcard.b .fwlist li::before { color: rgba(26,26,24,0.4); }
         body.dark .fwcard.b { background: var(--brand-block-bg); border-right-color: var(--border); }
         body.dark .fwcard.s { background: var(--brand-block-bg); }
         body.dark .fwcard.b h3 { color: var(--green-light); }
         body.dark .fwcard.s h3 { color: var(--orange-light); }
+        body.dark .fwcard.b .fwlist li { color: var(--ink-mid); border-bottom-color: var(--brand-block-sep); }
         body.dark .fwlist li { color: var(--ink-mid); border-bottom-color: var(--brand-block-sep); }
         body.dark .fwlist li::before { color: var(--border); }
+        body.dark .fwcard.b .fwlist li::before { color: var(--green); }
 
         /* FAQ */
         .faq-list { max-width: 740px; border: 2px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
@@ -339,11 +347,11 @@
 
         /* CTA section */
         .cta-sec {
-            background: var(--green) !important;
+            background: #B84A1C !important;
             border-bottom: 2px solid var(--border);
         }
-        body.dark .cta-sec { background: #3B0764 !important; }
-        .cta-sec .slabel { color: rgba(194,219,201,0.8); }
+        body.dark .cta-sec { background: #6B2200 !important; }
+        .cta-sec .slabel { color: rgba(255,220,200,0.7); }
         .cta-sec .stitle { color: #fff; }
         .cta-sec .ssub { color: rgba(255,255,255,0.75); margin: 0 auto 40px; }
         .cta-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-items: start; }
@@ -363,19 +371,19 @@
             font-family: 'DM Sans', sans-serif !important;
             font-size: 14px !important;
             background: rgba(255,255,255,0.08) !important;
-            border: 1px solid rgba(168,85,247,0.45) !important;
+            border: 1px solid rgba(109,190,0,0.45) !important;
             border-radius: 4px !important;
             color: #F0EFE8 !important;
             padding: 10px 14px !important;
             width: 100% !important;
         }
-        #sib-container input.input:focus { border-color: #A855F7 !important; outline: none !important; }
+        #sib-container input.input:focus { border-color: #6DBE00 !important; outline: none !important; }
         #sib-container input.input::placeholder { color: rgba(240,239,232,0.4) !important; }
         #sib-container select.input {
             font-family: 'DM Sans', sans-serif !important;
             font-size: 14px !important;
             background: rgba(255,255,255,0.08) !important;
-            border: 1px solid rgba(168,85,247,0.45) !important;
+            border: 1px solid rgba(109,190,0,0.45) !important;
             border-radius: 4px !important;
             color: #F0EFE8 !important;
             padding: 10px 14px !important;
@@ -533,7 +541,7 @@
             <div class="stat-label" data-lang="it">Tutta Europa. Pokémon, One Piece, Yu-Gi-Oh! al lancio.</div>
         </div>
         <div class="roles-row">
-            <div class="rpill"><div class="rdot" style="background:#6B21A8;"></div><span data-lang="en" class="i">Collector</span><span data-lang="it" class="i">Collezionista</span></div>
+            <div class="rpill"><div class="rdot" style="background:#6DBE00;"></div><span data-lang="en" class="i">Collector</span><span data-lang="it" class="i">Collezionista</span></div>
             <div class="rpill"><div class="rdot" style="background:#B84A1C;"></div><span data-lang="en" class="i">Hunter</span><span data-lang="it" class="i">Hunter</span></div>
         </div>
     </div>
@@ -784,7 +792,7 @@
                                                     <label>
                                                         <input type="checkbox" class="input_replaced" value="1" id="CONSENSO" name="CONSENSO" required/>
                                                         <span class="checkbox checkbox_tick_positive"></span>
-                                                        <span style="font-size:12px;font-family:'DM Sans',sans-serif;color:rgba(255,255,255,0.6);">I agree to receive updates about Huntlist and accept the <a href="privacy.html" style="color:#D8B4FE;">Privacy Policy</a>. I can unsubscribe at any time.</span>
+                                                        <span style="font-size:12px;font-family:'DM Sans',sans-serif;color:rgba(255,255,255,0.6);">I agree to receive updates about Huntlist and accept the <a href="privacy.html" style="color:#C2F000;">Privacy Policy</a>. I can unsubscribe at any time.</span>
                                                     </label>
                                                 </div>
                                             </div>
