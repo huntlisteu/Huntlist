@@ -189,33 +189,17 @@
         .stat-wrap {
             position: relative;
             border-radius: var(--r-lg);
-        }
-        .stat-wrap::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: var(--r-lg);
             border: 2px solid var(--border);
-            box-shadow: 4px 4px 0px var(--border);
-            opacity: 0;
-            transition: opacity 0.14s ease;
-            pointer-events: none;
+            box-shadow: none;
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
         }
-        @media (hover: hover) and (pointer: fine) {
-            .stat-wrap:hover .stat-box { transform: translate(-4px,-4px) !important; }
-            .stat-wrap:hover::after { opacity: 1; }
-        }
+        .stat-wrap:hover { transform: translate(-3px,-3px); box-shadow: 3px 3px 0px var(--border); }
+        .stat-wrap:active { transform: translate(-3px,-3px); box-shadow: 3px 3px 0px var(--border); }
         .stat-box {
-            border: 2px solid var(--border);
             background: #6DBE00;
             padding: 20px 24px;
-            box-shadow: none;
-            transition: transform 0.14s ease;
-            border-radius: var(--r-lg);
-            will-change: transform;
+            border-radius: calc(var(--r-lg) - 2px);
             cursor: default;
-            position: relative;
-            z-index: 1;
         }
         .stat-box .stat-num {
             font-family: 'Sora', sans-serif;
@@ -225,7 +209,7 @@
         .stat-box .stat-num.orange { color: #1A1A18; }
         .stat-box .stat-num.green  { color: #1A1A18; }
         .stat-box .stat-label { font-size: 13px; color: rgba(26,26,24,0.8); margin-top: 4px; }
-        body.dark .stat-box { background: var(--brand-block-bg); border-color: var(--border); }
+        body.dark .stat-box { background: var(--brand-block-bg); }
         body.dark .stat-box .stat-num { color: var(--green-light); }
         body.dark .stat-box .stat-num.orange { color: var(--orange-light); }
         body.dark .stat-box .stat-num.green  { color: var(--green-light); }
