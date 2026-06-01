@@ -193,9 +193,13 @@
             box-shadow: none;
             transition: transform 0.14s ease, box-shadow 0.14s ease;
             border-radius: var(--r-lg);
+            will-change: transform;
+            cursor: default;
         }
-        .stat-box.lifted { transform: translate(-4px,-4px); box-shadow: 4px 4px 0px #1A1A18; }
-        body.dark .stat-box.lifted { box-shadow: 4px 4px 0px #3A3D38; }
+        @media (hover: hover) and (pointer: fine) {
+            .stat-box:hover { transform: translate(-4px,-4px) !important; box-shadow: 4px 4px 0px #1A1A18 !important; }
+            body.dark .stat-box:hover { box-shadow: 4px 4px 0px #3A3D38 !important; }
+        }
         .stat-box .stat-num {
             font-family: 'Sora', sans-serif;
             font-size: 42px; font-weight: 800; line-height: 1;
