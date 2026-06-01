@@ -11,13 +11,13 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --green: #2D5A3D;
-            --green-light: #3D7A54;
-            --green-pale: #EAF2EC;
-            --green-mid: #C2DBC9;
-            --orange: #E8622A;
-            --orange-light: #F5855A;
-            --orange-pale: #FDF0EB;
+            --green: #6B21A8;
+            --green-light: #9333EA;
+            --green-pale: #EDE9FE;
+            --green-mid: #C4B5FD;
+            --orange: #B84A1C;
+            --orange-light: #D4602A;
+            --orange-pale: #FAE8DC;
             --bg: #FAFAF7;
             --bg2: #F0EFE8;
             --ink: #1A1A18;
@@ -43,10 +43,10 @@
             --ink-mid: #B0AFA8;
             --ink-light: #5A5A54;
             --border: #3A3D38;
-            --green: #3DBB7E;
-            --green-light: #6FD6A0;
-            --green-pale: rgba(61,187,126,0.13);
-            --green-mid: rgba(61,187,126,0.26);
+            --green: #A855F7;
+            --green-light: #D8B4FE;
+            --green-pale: rgba(168,85,247,0.13);
+            --green-mid: rgba(168,85,247,0.26);
             --orange: #FF6B2C;
             --orange-light: #FF8A56;
             --orange-pale: rgba(255,107,44,0.13);
@@ -58,6 +58,11 @@
             --shadow-press: 4px 3px 0px #3A3D38;
             --shadow-sm-lift: 6px 5px 0px #3A3D38;
             --shadow-card-lift: 15px 13px 0px #3A3D38;
+            /* Opzione C — blocchi brand in dark */
+            --brand-block-bg: #1A1A18;
+            --brand-block-border: rgba(255,255,255,0.08);
+            --brand-block-sub: rgba(240,239,232,0.65);
+            --brand-block-sep: rgba(255,255,255,0.1);
         }
 
         html { scroll-behavior: smooth; }
@@ -182,21 +187,26 @@
         /* Hero right — stat boxes */
         .stat-box {
             border: 2px solid var(--border);
-            background: var(--card);
+            background: #6B21A8;
             padding: 20px 24px;
             box-shadow: var(--shadow);
-            transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.2s;
+            transition: transform 0.14s ease, box-shadow 0.14s ease;
             border-radius: var(--r-lg);
         }
         .stat-box:hover { transform: translate(-4px,-4px); box-shadow: var(--shadow-card-lift); }
         .stat-box .stat-num {
             font-family: 'Sora', sans-serif;
             font-size: 42px; font-weight: 800; line-height: 1;
-            letter-spacing: -2px; color: var(--ink);
+            letter-spacing: -2px; color: #F0EFE8;
         }
-        .stat-box .stat-num.orange { color: var(--orange); }
-        .stat-box .stat-num.green { color: var(--green); }
-        .stat-box .stat-label { font-size: 13px; color: var(--ink-mid); margin-top: 4px; }
+        .stat-box .stat-num.orange { color: #D4602A; }
+        .stat-box .stat-num.green { color: #D8B4FE; }
+        .stat-box .stat-label { font-size: 13px; color: rgba(240,239,232,0.7); margin-top: 4px; }
+        body.dark .stat-box { background: var(--brand-block-bg); border-color: var(--border); }
+        body.dark .stat-box .stat-num { color: var(--green-light); }
+        body.dark .stat-box .stat-num.orange { color: var(--orange-light); }
+        body.dark .stat-box .stat-num.green { color: var(--green-light); }
+        body.dark .stat-box .stat-label { color: var(--brand-block-sub); }
 
         .roles-row { display: flex; gap: 18px; flex-wrap: wrap; }
         .rpill {
@@ -230,44 +240,58 @@
         /* How it works — numbered row */
         .how-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border: 2px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
         .hcard {
-            padding: 36px 32px; border-right: 2px solid var(--border);
-            position: relative; background: var(--card);
+            padding: 36px 32px; border-right: 2px solid rgba(255,255,255,0.2);
+            position: relative; background: #B84A1C;
             transition: background 0.2s;
         }
         .hcard:last-child { border-right: none; }
         .hnum {
             font-family: 'Sora', sans-serif; font-size: 76px; font-weight: 800;
-            line-height: 1; letter-spacing: -2px; color: var(--green-mid);
+            line-height: 1; letter-spacing: -2px; color: rgba(255,255,255,0.15);
             position: absolute; top: 16px; right: 20px;
             transition: color 0.2s;
         }
-        body.dark .hnum { color: var(--green-mid); }
         .hicon {
-            width: 48px; height: 48px; border: 2px solid var(--border);
+            width: 48px; height: 48px; border: 2px solid rgba(255,255,255,0.4);
             display: flex; align-items: center; justify-content: center;
-            margin-bottom: 20px; font-size: 22px; background: var(--bg);
+            margin-bottom: 20px; font-size: 22px; background: rgba(255,255,255,0.15);
             transition: background 0.2s;
             border-radius: var(--r);
         }
         .hcard h3 {
             font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 600;
-            letter-spacing: -0.5px; margin-bottom: 10px; color: var(--ink);
+            letter-spacing: -0.5px; margin-bottom: 10px; color: #F0EFE8;
         }
-        .hcard p { font-size: 14px; color: var(--ink-mid); line-height: 1.65; max-width: 260px; }
+        .hcard p { font-size: 14px; color: rgba(240,239,232,0.75); line-height: 1.65; max-width: 260px; }
+        body.dark .hcard { background: var(--brand-block-bg); border-right-color: var(--brand-block-border); }
+        body.dark .hcard:last-child { border-right: none; }
+        body.dark .hnum { color: var(--green-light); opacity: 0.25; }
+        body.dark .hicon { border-color: var(--border); background: var(--bg2); }
+        body.dark .hcard h3 { color: var(--orange-light); }
+        body.dark .hcard p { color: var(--ink-mid); }
 
         /* Categories */
         .cats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border: 2px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
         .ccat {
-            padding: 28px 24px; border-right: 2px solid var(--border);
-            text-align: left; background: var(--card);
-            transition: background 0.15s, transform 0.1s;
+            padding: 28px 24px; border-right: 2px solid rgba(255,255,255,0.2);
+            text-align: left;
+            transition: filter 0.15s;
             cursor: default;
         }
         .ccat:last-child { border-right: none; }
-        .ccat:hover { background: var(--green-pale); }
+        .ccat:nth-child(odd)  { background: #6B21A8; }
+        .ccat:nth-child(even) { background: #B84A1C; }
+        .ccat:hover { filter: brightness(1.12); }
         .cicon { font-size: 28px; margin-bottom: 12px; display: block; }
-        .cname { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.5px; color: var(--ink); }
-        .csub { font-size: 12px; color: var(--ink-light); margin-top: 4px; }
+        .cname { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.5px; color: #F0EFE8; }
+        .csub { font-size: 12px; color: rgba(240,239,232,0.65); margin-top: 4px; }
+        body.dark .ccat { filter: none; border-right-color: var(--brand-block-border); }
+        body.dark .ccat:nth-child(odd)  { background: var(--brand-block-bg); }
+        body.dark .ccat:nth-child(even) { background: var(--brand-block-bg); }
+        body.dark .ccat:nth-child(odd) .cname  { color: var(--green-light); }
+        body.dark .ccat:nth-child(even) .cname { color: var(--orange-light); }
+        body.dark .ccat:hover { background: var(--bg2); }
+        body.dark .csub { color: var(--ink-mid); }
 
         /* For who */
         .fw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 2px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
@@ -275,24 +299,26 @@
             padding: 40px;
             transition: background 0.2s;
         }
-        .fwcard.b { background: var(--green-pale); border-right: 2px solid var(--border); }
-        .fwcard.s { background: var(--orange-pale); }
+        .fwcard.b { background: #6B21A8; border-right: 2px solid rgba(255,255,255,0.2); }
+        .fwcard.s { background: #B84A1C; }
         .fwcard h3 {
             font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 700;
-            letter-spacing: -1px; margin-bottom: 24px;
+            letter-spacing: -1px; margin-bottom: 24px; color: #F0EFE8;
         }
-        .fwcard.b h3 { color: var(--green); }
-        .fwcard.s h3 { color: var(--orange); }
         .fwlist { list-style: none; }
         .fwlist li {
-            font-size: 15px; color: var(--ink-mid); padding: 10px 0;
-            border-bottom: 1px solid var(--border); line-height: 1.5;
+            font-size: 15px; color: rgba(240,239,232,0.8); padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2); line-height: 1.5;
             display: flex; gap: 10px; align-items: flex-start;
         }
         .fwlist li:last-child { border-bottom: none; }
-        .fwlist li::before { content: '→'; font-weight: 500; flex-shrink: 0; margin-top: 1px; }
-        .fwcard.b .fwlist li::before { color: var(--green); }
-        .fwcard.s .fwlist li::before { color: var(--orange); }
+        .fwlist li::before { content: '→'; font-weight: 500; flex-shrink: 0; margin-top: 1px; color: rgba(255,255,255,0.6); }
+        body.dark .fwcard.b { background: var(--brand-block-bg); border-right-color: var(--border); }
+        body.dark .fwcard.s { background: var(--brand-block-bg); }
+        body.dark .fwcard.b h3 { color: var(--green-light); }
+        body.dark .fwcard.s h3 { color: var(--orange-light); }
+        body.dark .fwlist li { color: var(--ink-mid); border-bottom-color: var(--brand-block-sep); }
+        body.dark .fwlist li::before { color: var(--border); }
 
         /* FAQ */
         .faq-list { max-width: 740px; border: 2px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
@@ -316,7 +342,7 @@
             background: var(--green) !important;
             border-bottom: 2px solid var(--border);
         }
-        body.dark .cta-sec { background: #0C3D2C !important; }
+        body.dark .cta-sec { background: #3B0764 !important; }
         .cta-sec .slabel { color: rgba(194,219,201,0.8); }
         .cta-sec .stitle { color: #fff; }
         .cta-sec .ssub { color: rgba(255,255,255,0.75); margin: 0 auto 40px; }
@@ -337,19 +363,19 @@
             font-family: 'DM Sans', sans-serif !important;
             font-size: 14px !important;
             background: rgba(255,255,255,0.08) !important;
-            border: 1px solid rgba(61,187,126,0.45) !important;
+            border: 1px solid rgba(168,85,247,0.45) !important;
             border-radius: 4px !important;
             color: #F0EFE8 !important;
             padding: 10px 14px !important;
             width: 100% !important;
         }
-        #sib-container input.input:focus { border-color: #3DBB7E !important; outline: none !important; }
+        #sib-container input.input:focus { border-color: #A855F7 !important; outline: none !important; }
         #sib-container input.input::placeholder { color: rgba(240,239,232,0.4) !important; }
         #sib-container select.input {
             font-family: 'DM Sans', sans-serif !important;
             font-size: 14px !important;
             background: rgba(255,255,255,0.08) !important;
-            border: 1px solid rgba(61,187,126,0.45) !important;
+            border: 1px solid rgba(168,85,247,0.45) !important;
             border-radius: 4px !important;
             color: #F0EFE8 !important;
             padding: 10px 14px !important;
@@ -507,8 +533,8 @@
             <div class="stat-label" data-lang="it">Tutta Europa. Pokémon, One Piece, Yu-Gi-Oh! al lancio.</div>
         </div>
         <div class="roles-row">
-            <div class="rpill"><div class="rdot" style="background:#2D5A3D;"></div><span data-lang="en" class="i">Collector</span><span data-lang="it" class="i">Collezionista</span></div>
-            <div class="rpill"><div class="rdot" style="background:#E8622A;"></div><span data-lang="en" class="i">Hunter</span><span data-lang="it" class="i">Hunter</span></div>
+            <div class="rpill"><div class="rdot" style="background:#6B21A8;"></div><span data-lang="en" class="i">Collector</span><span data-lang="it" class="i">Collezionista</span></div>
+            <div class="rpill"><div class="rdot" style="background:#B84A1C;"></div><span data-lang="en" class="i">Hunter</span><span data-lang="it" class="i">Hunter</span></div>
         </div>
     </div>
 </section>
@@ -758,7 +784,7 @@
                                                     <label>
                                                         <input type="checkbox" class="input_replaced" value="1" id="CONSENSO" name="CONSENSO" required/>
                                                         <span class="checkbox checkbox_tick_positive"></span>
-                                                        <span style="font-size:12px;font-family:'DM Sans',sans-serif;color:rgba(255,255,255,0.6);">I agree to receive updates about Huntlist and accept the <a href="privacy.html" style="color:#5FD699;">Privacy Policy</a>. I can unsubscribe at any time.</span>
+                                                        <span style="font-size:12px;font-family:'DM Sans',sans-serif;color:rgba(255,255,255,0.6);">I agree to receive updates about Huntlist and accept the <a href="privacy.html" style="color:#D8B4FE;">Privacy Policy</a>. I can unsubscribe at any time.</span>
                                                     </label>
                                                 </div>
                                             </div>
@@ -768,7 +794,7 @@
                                 </div>
                                 <div style="padding:8px 0;">
                                     <div class="sib-form-block" style="text-align:center;">
-                                        <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:15px;font-weight:500;font-family:'DM Sans',sans-serif;color:#FFFFFF;background-color:#E8622A;border-radius:4px;border:2px solid rgba(255,255,255,0.3);padding:14px 32px;cursor:pointer;width:100%;" form="sib-form" type="submit">
+                                        <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:15px;font-weight:500;font-family:'DM Sans',sans-serif;color:#FFFFFF;background-color:#B84A1C;border-radius:4px;border:2px solid rgba(255,255,255,0.3);padding:14px 32px;cursor:pointer;width:100%;" form="sib-form" type="submit">
                                             <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512"><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.010z"/></svg>
                                             Join the hunt →
                                         </button>
