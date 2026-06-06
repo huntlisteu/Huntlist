@@ -29,9 +29,6 @@
 
     var btnEn=document.getElementById('btn-en');
     var btnIt=document.getElementById('btn-it');
-    var navCta=document.getElementById('nav-cta');
-    var emailInput=document.getElementById('EMAIL');
-    var localeInput=document.querySelector('#sib-form input[name="locale"]');
 
     function setLang(l){
         lang=l;
@@ -40,19 +37,10 @@
         document.documentElement.lang=l;
         if(btnEn)btnEn.classList.toggle('active',l==='en');
         if(btnIt)btnIt.classList.toggle('active',l==='it');
-        if(navCta)navCta.textContent=l==='en'?'Join the waitlist':'Unisciti alla lista';
-        if(emailInput)emailInput.placeholder=l==='en'?'your@email.com':'tua@email.it';
-        if(localeInput)localeInput.value=l;
-        window.LOCALE=l;
     }
 
     if(btnEn)btnEn.addEventListener('click',function(){setLang('en');});
     if(btnIt)btnIt.addEventListener('click',function(){setLang('it');});
-    if(navCta)navCta.addEventListener('click',function(){
-        var target=document.getElementById('early-access');
-        if(target)target.scrollIntoView({behavior:'smooth'});
-        setTimeout(function(){if(emailInput)emailInput.focus();},600);
-    });
 
     document.querySelectorAll('.faq-q').forEach(function(q){
         q.addEventListener('click',function(){
